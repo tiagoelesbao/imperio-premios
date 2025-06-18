@@ -1,7 +1,8 @@
 /* ========================================
-   HERO.CSS - Estilos da Seção Hero VSL Format
+   HERO.CSS - Estilos da Seção Hero VSL Format (ATUALIZADO)
    ======================================== */
 
+/* Estilos anteriores mantidos... */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -9,15 +10,13 @@
     padding: var(--spacing-3xl) 0;
     position: relative;
     overflow: hidden;
-    margin-top: 50px; /* Espaço para alert bar */
+    margin-top: 50px;
 }
 
-/* VSL Format Styling */
 .hero-vsl {
     text-align: center;
 }
 
-/* Background Pattern */
 .hero::before {
     content: '';
     position: absolute;
@@ -31,7 +30,6 @@
     z-index: -1;
 }
 
-/* Hero Content VSL */
 .hero-content-vsl {
     max-width: 1000px;
     margin: 0 auto;
@@ -39,7 +37,6 @@
     z-index: 1;
 }
 
-/* Hero Badge Center */
 .hero-badge-center {
     display: inline-flex;
     align-items: center;
@@ -60,35 +57,6 @@
     animation: bounce 2s ease-in-out infinite;
 }
 
-/* Mobile: Desacelera animação da coroa */
-@media (max-width: 768px) {
-    .crown-icon {
-        animation-duration: 3.5s !important;
-    }
-    
-    @keyframes bounce {
-        0%, 100% { 
-            transform: translateY(0) rotate(-3deg);
-        }
-        50% { 
-            transform: translateY(-3px) rotate(3deg);
-        }
-    }
-}
-
-/* Desktop: Animação normal */
-@media (min-width: 769px) {
-    @keyframes bounce {
-        0%, 100% { 
-            transform: translateY(0) rotate(-5deg);
-        }
-        50% { 
-            transform: translateY(-5px) rotate(5deg);
-        }
-    }
-}
-
-/* Hero Title VSL */
 .hero-title-vsl {
     font-size: clamp(var(--text-3xl), 5vw, var(--text-6xl));
     font-weight: 900;
@@ -122,15 +90,13 @@
     background: var(--black);
 }
 
-/* Video Responsive Wrapper */
 .video-responsive-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
 }
 
-/* VSL Video */
 .vsl-video {
     position: absolute;
     top: 0;
@@ -139,52 +105,256 @@
     height: 100%;
     object-fit: contain;
     background: #000;
-}
-
-/* Sound Control Button */
-.sound-control {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 3px solid var(--gold);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    transition: all var(--transition-base);
-    z-index: 10;
 }
 
-.sound-control:hover {
-    background: rgba(255, 184, 0, 0.9);
-    transform: translate(-50%, -50%) scale(1.1);
+/* ======================================== 
+   NOVOS ESTILOS - CONTROLE DE SOM EMERGENTE
+   ======================================== */
+
+/* Wrapper do Controle de Som */
+.sound-control-wrapper {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    transition: all 0.3s ease;
 }
 
-.sound-control i {
-    font-size: var(--text-3xl);
-    color: var(--white);
-}
-
-.sound-control.playing {
+.sound-control-wrapper.playing {
     opacity: 0;
     pointer-events: none;
 }
 
-.sound-control.playing:hover {
-    opacity: 0.8;
-    pointer-events: all;
+/* Botão Principal de Som */
+.sound-control-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(135deg, var(--red) 0%, #ff5555 100%);
+    border: 3px solid var(--white);
+    border-radius: 50px;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 10px 30px rgba(255, 59, 59, 0.5),
+        0 0 0 0 rgba(255, 59, 59, 0.4);
+    animation: 
+        soundPulse 2s ease-in-out infinite,
+        shadowPulse 2s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Para vídeo vertical */
-.vsl-wrapper.vertical-video .video-responsive-wrapper {
-    padding-bottom: 177.78%; /* 9:16 Aspect Ratio para vertical */
-    max-width: 450px;
-    margin: 0 auto;
+/* Animação de Pulso */
+@keyframes soundPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shadowPulse {
+    0%, 100% {
+        box-shadow: 
+            0 10px 30px rgba(255, 59, 59, 0.5),
+            0 0 0 0 rgba(255, 59, 59, 0.4);
+    }
+    50% {
+        box-shadow: 
+            0 15px 40px rgba(255, 59, 59, 0.7),
+            0 0 0 20px rgba(255, 59, 59, 0);
+    }
+}
+
+/* Ícone do Som */
+.sound-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sound-control-btn i {
+    font-size: 24px;
+    color: var(--white);
+    animation: iconShake 3s ease-in-out infinite;
+}
+
+@keyframes iconShake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+/* Texto do Botão */
+.sound-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover Effect */
+.sound-control-btn:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #ff5555 0%, var(--red) 100%);
+    box-shadow: 
+        0 15px 40px rgba(255, 59, 59, 0.7),
+        0 0 0 5px rgba(255, 59, 59, 0.2);
+}
+
+/* Indicador de Clique */
+.click-indicator {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.click-ripple {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: clickRipple 2s ease-out infinite;
+}
+
+.click-ripple:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.click-ripple:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes clickRipple {
+    0% {
+        width: 20px;
+        height: 20px;
+        opacity: 1;
+    }
+    100% {
+        width: 60px;
+        height: 60px;
+        opacity: 0;
+    }
+}
+
+/* Overlay de Instrução */
+.vsl-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 15;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vsl-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay-content {
+    text-align: center;
+}
+
+/* Alerta de Som */
+.sound-alert {
+    background: rgba(255, 184, 0, 0.1);
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: 30px 50px;
+    backdrop-filter: blur(10px);
+    animation: bounceIn 0.8s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.sound-alert-icon {
+    font-size: 60px;
+    color: var(--gold);
+    margin-bottom: 20px;
+    animation: soundWave 1.5s ease-in-out infinite;
+}
+
+@keyframes soundWave {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.sound-alert-text {
+    color: var(--white);
+}
+
+.sound-alert-text strong {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--gold);
+}
+
+.sound-alert-text span {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Status do Som */
+.vsl-sound-status {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--gray-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.vsl-sound-status.active {
+    color: var(--green);
+}
+
+.vsl-sound-status i {
+    font-size: 16px;
 }
 
 /* Live Badge */
@@ -214,52 +384,6 @@
     animation: blink 1s ease-in-out infinite;
 }
 
-/* Mobile: Desacelera animações do live badge */
-@media (max-width: 768px) {
-    .live-badge {
-        animation-duration: 3.5s !important;
-    }
-    
-    .live-dot {
-        animation-duration: 2s !important;
-    }
-    
-    @keyframes livePulse {
-        0%, 100% { 
-            transform: scale(1);
-            box-shadow: 0 4px 20px rgba(255, 59, 59, 0.5);
-        }
-        50% { 
-            transform: scale(1.02);
-            box-shadow: 0 5px 25px rgba(255, 59, 59, 0.6);
-        }
-    }
-    
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-    }
-}
-
-/* Desktop: Animações normais */
-@media (min-width: 769px) {
-    @keyframes livePulse {
-        0%, 100% { 
-            transform: scale(1);
-            box-shadow: 0 4px 20px rgba(255, 59, 59, 0.5);
-        }
-        50% { 
-            transform: scale(1.05);
-            box-shadow: 0 6px 30px rgba(255, 59, 59, 0.7);
-        }
-    }
-    
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.3; }
-    }
-}
-
 /* VSL Info */
 .vsl-info {
     text-align: center;
@@ -275,14 +399,13 @@
     color: var(--gold);
 }
 
-/* Hero Bottom Content */
+/* Outros estilos mantidos... */
 .hero-bottom-content {
     max-width: 900px;
     margin: var(--spacing-3xl) auto 0;
     padding: 0 var(--spacing-lg);
 }
 
-/* Hero Description VSL */
 .hero-description-vsl {
     font-size: var(--text-lg);
     line-height: 1.8;
@@ -294,7 +417,6 @@
     margin-right: auto;
 }
 
-/* Hero Features VSL */
 .hero-features-vsl {
     list-style: none;
     display: grid;
@@ -328,181 +450,68 @@
     margin-top: 2px;
 }
 
-/* Hero CTA VSL */
 .hero-cta-vsl {
     animation: fadeInUp 1s ease-out 1s both;
     text-align: center;
     margin-top: var(--spacing-3xl);
 }
 
-.urgency-wrapper {
-    margin-top: var(--spacing-xl);
-}
-
-.urgency {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    font-size: var(--text-base);
-    color: var(--gold);
-    margin-bottom: var(--spacing-md);
-}
-
-.urgency i {
-    animation: blink 1.5s ease-in-out infinite;
-}
-
-/* Mobile: Desacelera animação do ícone de urgência */
+/* Responsive para controles de som */
 @media (max-width: 768px) {
-    .urgency i {
-        animation-duration: 2.5s !important;
-    }
-}
-
-.security-badges {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-xl);
-    font-size: var(--text-sm);
-    color: var(--gray-light);
-}
-
-.security-badges span {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-}
-
-.security-badges i {
-    color: var(--green);
-    font-size: var(--text-base);
-}
-
-/* Fade In Up Animation */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .hero {
-        padding: var(--spacing-2xl) 0;
-        min-height: auto;
+    .sound-control-wrapper {
+        bottom: 15px;
     }
     
-    .hero-title-vsl {
-        font-size: clamp(var(--text-2xl), 7vw, var(--text-4xl));
-        margin-bottom: var(--spacing-2xl);
+    .sound-control-btn {
+        padding: 12px 20px;
     }
     
-    .vsl-container {
-        margin: var(--spacing-2xl) auto;
-        padding: 0 var(--spacing-md);
+    .sound-icon-wrapper {
+        width: 30px;
+        height: 30px;
     }
     
-    .sound-control {
-        width: 60px;
-        height: 60px;
+    .sound-control-btn i {
+        font-size: 20px;
     }
     
-    .sound-control i {
-        font-size: var(--text-2xl);
+    .sound-text {
+        font-size: 14px;
     }
     
-    .hero-bottom-content {
-        margin-top: var(--spacing-2xl);
-        padding: 0 var(--spacing-md);
+    .sound-alert {
+        padding: 20px 30px;
+        margin: 0 20px;
     }
     
-    .hero-description-vsl {
-        font-size: var(--text-base);
-        margin-bottom: var(--spacing-xl);
+    .sound-alert-icon {
+        font-size: 40px;
     }
     
-    .hero-features-vsl {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-        padding: var(--spacing-lg);
-        margin-bottom: var(--spacing-2xl);
+    .sound-alert-text strong {
+        font-size: 18px;
     }
     
-    .hero-features-vsl li {
-        font-size: var(--text-sm);
-        padding: var(--spacing-xs) 0;
+    .sound-alert-text span {
+        font-size: 14px;
     }
     
-    .hero-features-vsl i {
-        font-size: var(--text-lg);
-    }
-    
-    .hero-cta-vsl {
-        margin-top: var(--spacing-2xl);
-    }
-    
-    .cta-button {
-        width: 100%;
-        max-width: 350px;
-        margin: 0 auto;
-    }
-    
-    .urgency {
-        font-size: var(--text-sm);
-    }
-    
-    .security-badges {
-        font-size: var(--text-xs);
-        gap: var(--spacing-md);
-        flex-wrap: wrap;
-    }
-    
-    .live-badge {
-        top: var(--spacing-sm);
-        right: var(--spacing-sm);
-        padding: var(--spacing-xs) var(--spacing-md);
-        font-size: var(--text-xs);
+    .vsl-sound-status {
+        font-size: 12px;
     }
 }
 
 @media (max-width: 480px) {
-    .hero {
-        padding: var(--spacing-xl) 0;
+    .sound-control-btn {
+        padding: 10px 15px;
+        gap: 10px;
     }
     
-    .hero-title-vsl {
-        font-size: var(--text-2xl);
+    .sound-text {
+        font-size: 12px;
     }
     
-    .hero-subtitle {
-        font-size: var(--text-base);
-    }
-    
-    .vsl-container {
-        margin: var(--spacing-xl) auto;
-        padding: 0;
-    }
-    
-    .hero-description-vsl {
-        font-size: var(--text-sm);
-    }
-    
-    .hero-features-vsl {
-        padding: var(--spacing-md);
-    }
-    
-    .cta-button {
-        padding: var(--spacing-md) var(--spacing-lg);
-        font-size: var(--text-base);
-    }
-    
-    .cta-button i {
-        font-size: var(--text-xl);
+    .click-indicator {
+        display: none;
     }
 }

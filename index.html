@@ -108,20 +108,59 @@
                             <span class="live-dot"></span>
                             AO VIVO
                         </div>
+                        
+                        <!-- Controle de Som Emergente -->
+                        <div class="sound-control-wrapper" id="soundControlWrapper">
+                            <button class="sound-control-btn" id="soundControlBtn" aria-label="Ativar som do vídeo">
+                                <div class="sound-icon-wrapper">
+                                    <i class="fas fa-volume-mute" id="soundIcon"></i>
+                                </div>
+                                <span class="sound-text">CLIQUE PARA ATIVAR O SOM</span>
+                            </button>
+                            
+                            <!-- Indicador animado de clique -->
+                            <div class="click-indicator">
+                                <div class="click-ripple"></div>
+                                <div class="click-ripple"></div>
+                                <div class="click-ripple"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Overlay de instrução -->
+                        <div class="vsl-overlay" id="vslOverlay">
+                            <div class="overlay-content">
+                                <div class="sound-alert">
+                                    <i class="fas fa-volume-up sound-alert-icon"></i>
+                                    <p class="sound-alert-text">
+                                        <strong>🔊 Ative o som para ouvir os depoimentos!</strong>
+                                        <span>Clique no vídeo ou no botão abaixo</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="video-responsive-wrapper">
-                            <video autoplay muted loop playsinline poster="img/video-thumb.jpg" class="vsl-video">
+                            <video 
+                                id="vslVideo"
+                                muted
+                                autoplay
+                                loop
+                                playsinline
+                                poster="img/video-thumb.jpg"
+                                class="vsl-video">
                                 <source src="video/depoimento.mp4" type="video/mp4">
-                                <!-- Fallback para iframe do YouTube -->
-                                <iframe src="https://www.youtube.com/embed/SEU_VIDEO_ID" 
-                                        frameborder="0" 
-                                        allowfullscreen
-                                        title="Depoimento de ganhadores">
-                                </iframe>
+                                <!-- Fallback para navegadores sem suporte -->
+                                Seu navegador não suporta vídeos HTML5.
                             </video>
                         </div>
                     </div>
+                    
                     <div class="vsl-info">
                         <p><strong>Assista:</strong> Ganhadores recebendo PIX ao vivo!</p>
+                        <p class="vsl-sound-status" id="vslSoundStatus">
+                            <i class="fas fa-volume-mute"></i> 
+                            <span>Vídeo sem som - Clique para ativar</span>
+                        </p>
                     </div>
                 </div>
 
@@ -592,5 +631,6 @@
     <script src="js/main.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/notifications.js"></script>
+    <script src="js/video-control.js"></script>
 </body>
 </html>
