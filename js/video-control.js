@@ -1,5 +1,5 @@
 /* ========================================
-   VIDEO-CONTROL.JS - Controle de Som do VSL
+   VIDEO-CONTROL.JS - Controle de Som do VSL (CORRIGIDO)
    ======================================== */
 
 // Configurações do Vídeo
@@ -21,134 +21,180 @@ const videoState = {
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Iniciando controles de vídeo...');
     initializeVideoControls();
 });
 
 function initializeVideoControls() {
     const video = document.getElementById('vslVideo');
     const soundBtn = document.getElementById('soundControlBtn');
-    const soundIcon = document.getElementById('soundIcon');
     const overlay = document.getElementById('vslOverlay');
-    const soundWrapper = document.getElementById('soundControlWrapper');
-    const soundStatus = document.getElementById('vslSoundStatus');
+    const wrapper = document.querySelector('.vsl-wrapper');
     
-    if (!video || !soundBtn) {
-        console.error('Elementos de vídeo não encontrados');
+    // Debug - verifica se elementos existem
+    console.log('Elementos encontrados:', {
+        video: !!video,
+        soundBtn: !!soundBtn,
+        overlay: !!overlay,
+        wrapper: !!wrapper
+    });
+    
+    if (!video) {
+        console.error('Vídeo não encontrado!');
         return;
     }
     
-    // Verifica se usuário já ativou som anteriormente
-    checkPreviousInteraction();
+    // Garante que o vídeo comece mutado
+    video.muted = true;
+    video.volume = 1; // Volume máximo quando desmutado
     
-    // Event Listeners
-    soundBtn.addEventListener('click', () => toggleSound(video));
-    video.addEventListener('click', () => toggleSound(video));
-    overlay.addEventListener('click', () => toggleSound(video));
-    
-    // Mostra overlay inicial
-    if (VIDEO_CONFIG.autoShowOverlay && !videoState.hasInteracted) {
-        showInitialOverlay();
+    // Event Listeners com preventDefault
+    if (soundBtn) {
+        soundBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Botão de som clicado');
+            toggleSound(video);
+        });
     }
     
-    // Inicia animações de atenção
+    // Click no vídeo
+    video.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Vídeo clicado');
+        toggleSound(video);
+    });
+    
+    // Click no overlay
+    if (overlay) {
+        overlay.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Overlay clicado');
+            toggleSound(video);
+        });
+    }
+    
+    // Click no wrapper também
+    if (wrapper) {
+        wrapper.addEventListener('click', (e) => {
+            // Só ativa se não for um clique em outro elemento
+            if (e.target === wrapper || e.target.classList.contains('video-responsive-wrapper')) {
+                e.preventDefault();
+                console.log('Wrapper clicado');
+                toggleSound(video);
+            }
+        });
+    }
+    
+    // Verifica interação anterior
+    checkPreviousInteraction();
+    
+    // Mostra overlay inicial (sem a classe hidden por padrão)
+    if (VIDEO_CONFIG.autoShowOverlay && !videoState.hasInteracted && overlay) {
+        console.log('Mostrando overlay inicial');
+        overlay.classList.remove('hidden');
+    }
+    
+    // Inicia animações
     startAttentionAnimations();
     
-    // Monitora o estado do vídeo
+    // Monitora estado
     monitorVideoState(video);
 }
 
-// Toggle Som do Vídeo
+// Toggle Som do Vídeo (SIMPLIFICADO)
 function toggleSound(video) {
+    console.log('Toggle sound chamado. Muted atual:', video.muted);
+    
     const soundIcon = document.getElementById('soundIcon');
     const overlay = document.getElementById('vslOverlay');
     const soundWrapper = document.getElementById('soundControlWrapper');
     const soundStatus = document.getElementById('vslSoundStatus');
-    const statusIcon = soundStatus.querySelector('i');
-    const statusText = soundStatus.querySelector('span');
     
-    if (videoState.isMuted) {
-        // Ativa o som
+    if (video.muted) {
+        // ATIVAR SOM
+        console.log('Ativando som...');
+        
+        // Primeiro tenta dar play se o vídeo estiver pausado
+        if (video.paused) {
+            video.play().then(() => {
+                console.log('Vídeo iniciado com sucesso');
+            }).catch(err => {
+                console.error('Erro ao iniciar vídeo:', err);
+            });
+        }
+        
+        // Desmuta o vídeo
         video.muted = false;
         videoState.isMuted = false;
         videoState.hasInteracted = true;
         
-        // Atualiza ícones
-        soundIcon.className = 'fas fa-volume-up';
-        statusIcon.className = 'fas fa-volume-up';
+        // Atualiza interface
+        if (soundIcon) soundIcon.className = 'fas fa-volume-up';
         
-        // Atualiza textos
-        statusText.textContent = 'Som ativado - Aproveite os depoimentos!';
-        soundStatus.classList.add('active');
+        if (soundStatus) {
+            const statusIcon = soundStatus.querySelector('i');
+            const statusText = soundStatus.querySelector('span');
+            if (statusIcon) statusIcon.className = 'fas fa-volume-up';
+            if (statusText) statusText.textContent = 'Som ativado - Aproveite os depoimentos!';
+            soundStatus.classList.add('active');
+        }
         
-        // Esconde controles
-        overlay.classList.add('hidden');
-        soundWrapper.classList.add('playing');
+        // Esconde elementos
+        if (overlay) overlay.classList.add('hidden');
+        if (soundWrapper) soundWrapper.classList.add('playing');
         
         // Salva preferência
         setCookie(VIDEO_CONFIG.cookieName, 'true', VIDEO_CONFIG.cookieDays);
         
-        // Para animações de atenção
+        // Para animações
         stopAttentionAnimations();
         
-        // Tracking
-        trackVideoEvent('sound_activated');
-        
-        // Feedback visual
+        // Feedback
         showSuccessFeedback();
         
+        console.log('Som ativado com sucesso!');
+        
     } else {
-        // Desativa o som
+        // DESATIVAR SOM
+        console.log('Desativando som...');
+        
         video.muted = true;
         videoState.isMuted = true;
         
-        // Atualiza ícones
-        soundIcon.className = 'fas fa-volume-mute';
-        statusIcon.className = 'fas fa-volume-mute';
+        // Atualiza interface
+        if (soundIcon) soundIcon.className = 'fas fa-volume-mute';
         
-        // Atualiza textos
-        statusText.textContent = 'Vídeo sem som - Clique para ativar';
-        soundStatus.classList.remove('active');
+        if (soundStatus) {
+            const statusIcon = soundStatus.querySelector('i');
+            const statusText = soundStatus.querySelector('span');
+            if (statusIcon) statusIcon.className = 'fas fa-volume-mute';
+            if (statusText) statusText.textContent = 'Vídeo sem som - Clique para ativar';
+            soundStatus.classList.remove('active');
+        }
         
-        // Mostra controles
-        soundWrapper.classList.remove('playing');
+        // Mostra controles novamente
+        if (soundWrapper) soundWrapper.classList.remove('playing');
         
-        // Tracking
-        trackVideoEvent('sound_deactivated');
+        console.log('Som desativado');
     }
 }
 
-// Mostra overlay inicial
-function showInitialOverlay() {
-    const overlay = document.getElementById('vslOverlay');
-    
-    // Remove classe hidden após pequeno delay para animação
-    setTimeout(() => {
-        overlay.classList.remove('hidden');
-    }, 1000);
-    
-    // Auto-hide após duração configurada
-    videoState.overlayTimer = setTimeout(() => {
-        if (videoState.isMuted) {
-            overlay.classList.add('hidden');
-        }
-    }, VIDEO_CONFIG.overlayDuration);
-}
-
-// Animações de atenção periódicas
+// Animações de atenção
 function startAttentionAnimations() {
     const soundWrapper = document.getElementById('soundControlWrapper');
+    if (!soundWrapper) return;
     
-    // Adiciona classe de super destaque periodicamente
     videoState.pulseTimer = setInterval(() => {
-        if (videoState.isMuted && !soundWrapper.classList.contains('super-pulse')) {
+        if (videoState.isMuted) {
             soundWrapper.classList.add('super-pulse');
             
             setTimeout(() => {
                 soundWrapper.classList.remove('super-pulse');
             }, 3000);
             
-            // Mostra notificação
-            if (window.showNotification) {
+            // Notificação opcional
+            if (window.showNotification && Math.random() > 0.7) {
                 window.showNotification({
                     title: '🔊 Não perca!',
                     message: 'Ative o som para ouvir depoimentos incríveis',
@@ -160,7 +206,7 @@ function startAttentionAnimations() {
     }, VIDEO_CONFIG.pulseInterval);
 }
 
-// Para animações de atenção
+// Para animações
 function stopAttentionAnimations() {
     if (videoState.overlayTimer) {
         clearTimeout(videoState.overlayTimer);
@@ -173,52 +219,44 @@ function stopAttentionAnimations() {
 
 // Monitora estado do vídeo
 function monitorVideoState(video) {
-    // Verifica se vídeo está tocando
+    let watchTime = 0;
+    
     video.addEventListener('play', () => {
-        console.log('Vídeo iniciado');
-        trackVideoEvent('video_play');
+        console.log('Vídeo play event');
     });
     
     video.addEventListener('pause', () => {
-        console.log('Vídeo pausado');
-        trackVideoEvent('video_pause');
+        console.log('Vídeo pause event');
     });
     
-    // Monitora tempo assistido
-    let watchTime = 0;
-    let watchInterval = setInterval(() => {
+    // Timer de watch time
+    setInterval(() => {
         if (!video.paused && !video.ended) {
             watchTime++;
             
-            // Marcos importantes
             if (watchTime === 10) {
-                trackVideoEvent('watched_10s');
+                console.log('10 segundos assistidos');
             } else if (watchTime === 30) {
-                trackVideoEvent('watched_30s');
-            } else if (watchTime === 60) {
-                trackVideoEvent('watched_60s');
+                console.log('30 segundos assistidos');
             }
         }
     }, 1000);
 }
 
-// Feedback visual de sucesso
+// Feedback visual
 function showSuccessFeedback() {
-    // Cria elemento de feedback
     const feedback = document.createElement('div');
-    feedback.className = 'sound-success-feedback';
     feedback.innerHTML = `
         <i class="fas fa-check-circle"></i>
         <span>Som ativado com sucesso!</span>
     `;
     
-    // Estilo inline temporário
     feedback.style.cssText = `
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: var(--green);
+        background: #00D563;
         color: white;
         padding: 20px 40px;
         border-radius: 50px;
@@ -227,14 +265,16 @@ function showSuccessFeedback() {
         align-items: center;
         gap: 15px;
         z-index: 9999;
+        box-shadow: 0 10px 30px rgba(0, 213, 99, 0.5);
         animation: feedbackPop 0.5s ease-out;
     `;
     
     document.body.appendChild(feedback);
     
-    // Remove após animação
     setTimeout(() => {
-        feedback.remove();
+        feedback.style.opacity = '0';
+        feedback.style.transform = 'translate(-50%, -50%) scale(0.9)';
+        setTimeout(() => feedback.remove(), 300);
     }, 2000);
 }
 
@@ -244,24 +284,11 @@ function checkPreviousInteraction() {
     
     if (hasActivated === 'true') {
         videoState.hasInteracted = true;
-        // Opcionalmente, pode ativar som automaticamente
-        // setTimeout(() => toggleSound(document.getElementById('vslVideo')), 1000);
+        console.log('Usuário já ativou som anteriormente');
     }
 }
 
-// Tracking de eventos
-function trackVideoEvent(eventName, data = {}) {
-    if (window.mainApp && window.mainApp.trackEvent) {
-        window.mainApp.trackEvent('video_' + eventName, {
-            video_id: 'vsl_main',
-            ...data
-        });
-    }
-    
-    console.log('Video Event:', eventName, data);
-}
-
-// Funções de Cookie
+// Cookies
 function setCookie(name, value, days) {
     const expires = new Date();
     expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -273,39 +300,24 @@ function getCookie(name) {
     const ca = document.cookie.split(';');
     
     for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length);
+        }
     }
-    
     return null;
 }
 
-// CSS adicional para animação super-pulse
-const additionalStyles = `
+// CSS para animações
+const styles = `
+<style>
 .sound-control-wrapper.super-pulse .sound-control-btn {
-    animation: 
-        superPulse 0.5s ease-out 3,
-        shadowSuperPulse 0.5s ease-out 3 !important;
+    animation: superPulse 0.5s ease-out 3 !important;
 }
 
 @keyframes superPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-}
-
-@keyframes shadowSuperPulse {
-    0% {
-        box-shadow: 
-            0 10px 30px rgba(255, 59, 59, 0.5),
-            0 0 0 0 rgba(255, 59, 59, 0.8);
-    }
-    100% {
-        box-shadow: 
-            0 10px 30px rgba(255, 59, 59, 0.5),
-            0 0 0 40px rgba(255, 59, 59, 0);
-    }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
 }
 
 @keyframes feedbackPop {
@@ -313,24 +325,29 @@ const additionalStyles = `
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.5);
     }
-    50% {
-        transform: translate(-50%, -50%) scale(1.1);
-    }
     100% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
     }
 }
+
+/* Garante que overlay fique invisível quando hidden */
+.vsl-overlay.hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    display: none !important;
+}
+
+/* Garante que botão fique invisível quando playing */
+.sound-control-wrapper.playing {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+</style>
 `;
 
-// Injeta estilos adicionais
-const styleSheet = document.createElement('style');
-styleSheet.textContent = additionalStyles;
-document.head.appendChild(styleSheet);
+// Adiciona estilos
+document.head.insertAdjacentHTML('beforeend', styles);
 
-// Export para uso global
-window.videoControl = {
-    toggleSound,
-    checkPreviousInteraction,
-    trackVideoEvent
-};
+// Log para debug
+console.log('Video control script carregado completamente');

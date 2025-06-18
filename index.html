@@ -216,51 +216,233 @@
     </section>
 
     <!-- Trust Badges Section -->
-    <section class="trust-section" id="trust">
-        <div class="container">
-            <div class="trust-badges">
-                <div class="trust-badge">
-                    <div class="trust-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="trust-content">
-                        <div class="trust-number" data-count="47583">0</div>
-                        <p class="trust-label">Membros Ativos</p>
-                    </div>
+<section class="trust-section" id="trust" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
+    <div class="container">
+        <div class="trust-badges">
+            <div class="trust-badge">
+                <div class="trust-icon">
+                    <i class="fas fa-users"></i>
                 </div>
-                
-                <div class="trust-badge">
-                    <div class="trust-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div class="trust-content">
-                        <div class="trust-number" data-count="2847">0</div>
-                        <p class="trust-label">Ganhadores Hoje</p>
-                    </div>
+                <div class="trust-content">
+                    <div class="trust-number" data-count="47583">47.583</div>
+                    <p class="trust-label">Membros Ativos</p>
                 </div>
-                
-                <div class="trust-badge">
-                    <div class="trust-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <div class="trust-content">
-                        <div class="trust-number">R$ <span data-count="487">0</span>K</div>
-                        <p class="trust-label">Pagos Hoje</p>
-                    </div>
+            </div>
+            
+            <div class="trust-badge">
+                <div class="trust-icon">
+                    <i class="fas fa-trophy"></i>
                 </div>
-                
-                <div class="trust-badge">
-                    <div class="trust-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="trust-content">
-                        <div class="trust-number" data-count="100">0</div>%
-                        <p class="trust-label">Taxa de Pagamento</p>
-                    </div>
+                <div class="trust-content">
+                    <div class="trust-number" data-count="2847">2.847</div>
+                    <p class="trust-label">Ganhadores Hoje</p>
+                </div>
+            </div>
+            
+            <div class="trust-badge">
+                <div class="trust-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="trust-content">
+                    <div class="trust-number">R$ <span data-count="487">487</span>K</div>
+                    <p class="trust-label">Pagos Hoje</p>
+                </div>
+            </div>
+            
+            <div class="trust-badge">
+                <div class="trust-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="trust-content">
+                    <div class="trust-number" data-count="100">100</div>%
+                    <p class="trust-label">Taxa de Pagamento</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+    <!-- ADICIONE ESTE STYLE LOGO APÓS A TRUST SECTION -->
+    <style>
+    /* Trust Section Styles */
+    .trust-section {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        padding: 60px 0;
+        position: relative;
+        overflow: visible;
+        background: rgba(255, 184, 0, 0.02);
+        border-top: 1px solid rgba(255, 184, 0, 0.15);
+        border-bottom: 1px solid rgba(255, 184, 0, 0.15);
+    }
+
+    .trust-section .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    .trust-badges {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .trust-badge {
+        display: block !important;
+        position: relative;
+        padding: 30px;
+        background: linear-gradient(135deg, rgba(255, 184, 0, 0.05) 0%, rgba(255, 184, 0, 0.02) 100%);
+        border: 1px solid rgba(255, 184, 0, 0.2);
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    .trust-badge:hover {
+        transform: translateY(-5px);
+        background: linear-gradient(135deg, rgba(255, 184, 0, 0.1) 0%, rgba(255, 184, 0, 0.05) 100%);
+        border-color: #FFB800;
+        box-shadow: 0 10px 30px rgba(255, 184, 0, 0.2);
+    }
+
+    .trust-icon {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, #FFB800 0%, #CC9200 100%);
+        border-radius: 50%;
+        position: relative;
+        box-shadow: 0 5px 20px rgba(255, 184, 0, 0.3);
+    }
+
+    .trust-icon i {
+        font-size: 36px;
+        color: #FFFFFF;
+        display: block !important;
+    }
+
+    .trust-content {
+        display: block !important;
+    }
+
+    .trust-number {
+        display: block !important;
+        font-size: 36px;
+        font-weight: 900;
+        color: #FFB800;
+        margin-bottom: 5px;
+        line-height: 1;
+        text-shadow: 0 2px 10px rgba(255, 184, 0, 0.3);
+    }
+
+    .trust-label {
+        display: block !important;
+        font-size: 16px;
+        font-weight: 600;
+        color: #999999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 0;
+    }
+
+    /* Cores diferentes para cada ícone */
+    .trust-badge:nth-child(1) .trust-icon {
+        background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+    }
+
+    .trust-badge:nth-child(2) .trust-icon {
+        background: linear-gradient(135deg, #FFB800 0%, #CC9200 100%);
+    }
+
+    .trust-badge:nth-child(3) .trust-icon {
+        background: linear-gradient(135deg, #00D563 0%, #00AA4F 100%);
+    }
+
+    .trust-badge:nth-child(4) .trust-icon {
+        background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .trust-badges {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .trust-section {
+            padding: 40px 0;
+        }
+        
+        .trust-badges {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px;
+        }
+        
+        .trust-badge {
+            padding: 20px;
+        }
+        
+        .trust-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .trust-icon i {
+            font-size: 28px;
+        }
+        
+        .trust-number {
+            font-size: 28px;
+        }
+        
+        .trust-label {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .trust-badges {
+            grid-template-columns: 1fr !important;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .trust-badge {
+            padding: 25px;
+        }
+    }
+
+    /* Animação de entrada */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .trust-badge {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .trust-badge:nth-child(1) { animation-delay: 0.1s; }
+    .trust-badge:nth-child(2) { animation-delay: 0.2s; }
+    .trust-badge:nth-child(3) { animation-delay: 0.3s; }
+    .trust-badge:nth-child(4) { animation-delay: 0.4s; }
+    </style>
 
     <!-- Winners Section -->
     <section class="winners-section" id="winners">
