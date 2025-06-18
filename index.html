@@ -84,28 +84,55 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
+    <!-- Hero Section VSL Format -->
+    <section class="hero hero-vsl" id="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-left">
-                    <div class="hero-badge">
-                        <i class="fas fa-crown crown-icon" aria-hidden="true"></i>
-                        <span>Grupo VIP Exclusivo</span>
+            <div class="hero-content-vsl">
+                <!-- Badge centralizado -->
+                <div class="hero-badge-center">
+                    <i class="fas fa-crown crown-icon" aria-hidden="true"></i>
+                    <span>Grupo VIP Exclusivo</span>
+                </div>
+                
+                <!-- Título centralizado -->
+                <h1 class="hero-title-vsl">
+                    Ganhe de <span class="text-gold">R$ 50</span> a 
+                    <span class="text-gold">R$ 8.000</span> no PIX
+                    <span class="hero-subtitle">Todos os dias, várias vezes ao dia!</span>
+                </h1>
+                
+                <!-- Vídeo VSL centralizado -->
+                <div class="vsl-container">
+                    <div class="vsl-wrapper">
+                        <div class="live-badge">
+                            <span class="live-dot"></span>
+                            AO VIVO
+                        </div>
+                        <div class="video-responsive-wrapper">
+                            <video autoplay muted loop playsinline poster="img/video-thumb.jpg" class="vsl-video">
+                                <source src="video/depoimento.mp4" type="video/mp4">
+                                <!-- Fallback para iframe do YouTube -->
+                                <iframe src="https://www.youtube.com/embed/SEU_VIDEO_ID" 
+                                        frameborder="0" 
+                                        allowfullscreen
+                                        title="Depoimento de ganhadores">
+                                </iframe>
+                            </video>
+                        </div>
                     </div>
-                    
-                    <h1 class="hero-title">
-                        Ganhe de <span class="text-gold">R$ 50</span> a 
-                        <span class="text-gold">R$ 8.000</span> no PIX
-                        <span class="hero-subtitle">Todos os dias, várias vezes ao dia!</span>
-                    </h1>
-                    
-                    <p class="hero-description">
+                    <div class="vsl-info">
+                        <p><strong>Assista:</strong> Ganhadores recebendo PIX ao vivo!</p>
+                    </div>
+                </div>
+
+                <!-- Descrição e Features -->
+                <div class="hero-bottom-content">
+                    <p class="hero-description-vsl">
                         Entre agora no <strong>grupo mais lucrativo do Brasil</strong> e comece a ganhar dinheiro de verdade. 
                         Sorteios a cada hora com pagamento instantâneo via PIX!
                     </p>
                     
-                    <ul class="hero-features">
+                    <ul class="hero-features-vsl">
                         <li>
                             <i class="fas fa-check-circle" aria-hidden="true"></i>
                             <span><strong>20+ sorteios por dia</strong> - Chances a cada hora</span>
@@ -124,9 +151,9 @@
                         </li>
                     </ul>
 
-                    <div class="hero-cta">
+                    <div class="hero-cta-vsl">
                         <a href="https://sndflw.com/i/BSgzoay66oMFH19XvaJ7" 
-                           class="cta-button cta-button-primary" 
+                           class="cta-button cta-button-primary cta-button-large pulse-animation" 
                            id="hero-cta"
                            aria-label="Entrar no grupo do WhatsApp">
                             <i class="fab fa-whatsapp" aria-hidden="true"></i>
@@ -142,30 +169,6 @@
                                 <span><i class="fas fa-shield-alt"></i> 100% Seguro</span>
                                 <span><i class="fas fa-lock"></i> Dados Protegidos</span>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-right">
-                    <div class="video-container">
-                        <div class="live-badge">
-                            <span class="live-dot"></span>
-                            AO VIVO
-                        </div>
-                        <div class="video-glow"></div>
-                        <div class="video-wrapper">
-                            <video autoplay muted loop playsinline poster="img/video-thumb.jpg">
-                                <source src="video/depoimento.mp4" type="video/mp4">
-                                <!-- Fallback para iframe do YouTube -->
-                                <iframe src="https://www.youtube.com/embed/SEU_VIDEO_ID" 
-                                        frameborder="0" 
-                                        allowfullscreen
-                                        title="Depoimento de ganhadores">
-                                </iframe>
-                            </video>
-                        </div>
-                        <div class="video-info">
-                            <p><strong>Assista:</strong> Ganhadores recebendo PIX ao vivo!</p>
                         </div>
                     </div>
                 </div>
@@ -263,59 +266,70 @@
                 </p>
             </div>
             
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <i class="fas fa-quote-right quote-icon" aria-hidden="true"></i>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">
-                            "Eu estava desempregado e desesperado. No primeiro mês já ganhei 
-                            <strong>R$ 12.000</strong>! Hoje consigo pagar todas as minhas contas 
-                            e ainda sobra. Império Prêmios salvou minha vida!"
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">FS</div>
-                            <div class="author-info">
-                                <strong>Fernando Silva</strong>
-                                <span>Ganhou R$ 38.500 em 3 meses</span>
+            <div class="testimonial-carousel-wrapper">
+                <div class="testimonial-carousel">
+                    <div class="testimonial-track">
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-right quote-icon" aria-hidden="true"></i>
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">
+                                    "Eu estava desempregado e desesperado. No primeiro mês já ganhei 
+                                    <strong>R$ 12.000</strong>! Hoje consigo pagar todas as minhas contas 
+                                    e ainda sobra. Império Prêmios salvou minha vida!"
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">FS</div>
+                                    <div class="author-info">
+                                        <strong>Fernando Silva</strong>
+                                        <span>Ganhou R$ 38.500 em 3 meses</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-right quote-icon" aria-hidden="true"></i>
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">
+                                    "No começo achei que era mentira, mas resolvi tentar. 
+                                    <strong>Ganhei R$ 5.000 no segundo dia!</strong> O PIX caiu na hora. 
+                                    Agora participo todos os dias e já ganhei mais de 30 vezes!"
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">MO</div>
+                                    <div class="author-info">
+                                        <strong>Maria Oliveira</strong>
+                                        <span>Ganhou R$ 45.200 em 4 meses</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <i class="fas fa-quote-right quote-icon" aria-hidden="true"></i>
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">
+                                    "Consegui quitar todas as minhas dívidas e realizar o sonho 
+                                    do carro próprio! <strong>Já ganhei mais de R$ 60.000</strong> 
+                                    participando do grupo. Melhor decisão da minha vida!"
+                                </p>
+                                <div class="testimonial-author">
+                                    <div class="author-avatar">PC</div>
+                                    <div class="author-info">
+                                        <strong>Paulo Costa</strong>
+                                        <span>Ganhou R$ 62.800 em 6 meses</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="testimonial-card">
-                    <i class="fas fa-quote-right quote-icon" aria-hidden="true"></i>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">
-                            "No começo achei que era mentira, mas resolvi tentar. 
-                            <strong>Ganhei R$ 5.000 no segundo dia!</strong> O PIX caiu na hora. 
-                            Agora participo todos os dias e já ganhei mais de 30 vezes!"
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">MO</div>
-                            <div class="author-info">
-                                <strong>Maria Oliveira</strong>
-                                <span>Ganhou R$ 45.200 em 4 meses</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <i class="fas fa-quote-right quote-icon" aria-hidden="true"></i>
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">
-                            "Consegui quitar todas as minhas dívidas e realizar o sonho 
-                            do carro próprio! <strong>Já ganhei mais de R$ 60.000</strong> 
-                            participando do grupo. Melhor decisão da minha vida!"
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">PC</div>
-                            <div class="author-info">
-                                <strong>Paulo Costa</strong>
-                                <span>Ganhou R$ 62.800 em 6 meses</span>
-                            </div>
-                        </div>
-                    </div>
+                
+                <!-- Indicadores de navegação mobile -->
+                <div class="carousel-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
                 </div>
             </div>
         </div>

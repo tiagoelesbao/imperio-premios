@@ -1,5 +1,5 @@
 /* ========================================
-   MAIN.JS - JavaScript Principal
+   MAIN.JS - JavaScript Principal Corrigido
    ======================================== */
 
 // Configurações Globais
@@ -10,7 +10,8 @@ const CONFIG = {
     onlineUsers: 2384,
     animationDuration: 300,
     notificationInterval: 15000,
-    particleCount: 50
+    particleCount: 50,
+    testimonialAutoplaySpeed: 5000 // 5 segundos para o carousel
 };
 
 // Estado Global
@@ -18,7 +19,8 @@ const state = {
     timeLeft: CONFIG.countdownTime,
     spots: CONFIG.spotsAvailable,
     onlineCount: CONFIG.onlineUsers,
-    isLoading: true
+    isLoading: true,
+    currentTestimonial: 0
 };
 
 // Inicialização
@@ -54,11 +56,17 @@ function initializeApp() {
     // Inicializa winners marquee
     initializeWinnersMarquee();
     
+    // Inicializa carousel de testimonials
+    initializeTestimonialCarousel();
+    
     // Previne clique com botão direito nas imagens
     preventImageRightClick();
     
     // Inicializa smooth scroll
     initializeSmoothScroll();
+    
+    // Fix para iOS
+    fixIOSViewport();
 }
 
 // Remove Loading Screen
@@ -193,8 +201,19 @@ function initializeAnimatedNumbers() {
             if (current >= end) {
                 current = end;
                 clearInterval(timer);
+                
+                // Adiciona efeito de celebration
+                if (element.dataset.celebrate === 'true') {
+                    celebrateNumber(element);
+                }
             }
-            element.textContent = Math.floor(current).toLocaleString('pt-BR');
+            
+            // Formatação especial para moeda
+            if (element.dataset.format === 'currency') {
+                element.textContent = formatCurrency(Math.floor(current));
+            } else {
+                element.textContent = Math.floor(current).toLocaleString('pt-BR');
+            }
         }, 16);
     };
     
@@ -348,6 +367,105 @@ function createWinnerCard(winner) {
     return card;
 }
 
+// Testimonial Carousel para Mobile
+function initializeTestimonialCarousel() {
+    const track = document.querySelector('.testimonial-track');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    const cards = document.querySelectorAll('.testimonial-card');
+    
+    if (!track || !dots.length || !cards.length) return;
+    
+    let currentIndex = 0;
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    
+    // Função para mudar slide
+    const goToSlide = (index) => {
+        currentIndex = index;
+        if (window.innerWidth <= 768) {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        } else {
+            track.style.transform = 'translateX(0)';
+        }
+        
+        // Atualiza dots
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    };
+    
+    // Click nos dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => goToSlide(index));
+    });
+    
+    // Touch/Swipe support
+    const handleStart = (e) => {
+        if (window.innerWidth > 768) return;
+        
+        isDragging = true;
+        startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        track.style.transition = 'none';
+    };
+    
+    const handleMove = (e) => {
+        if (!isDragging || window.innerWidth > 768) return;
+        
+        e.preventDefault();
+        currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const diff = currentX - startX;
+        const translate = -currentIndex * 100 + (diff / window.innerWidth) * 100;
+        track.style.transform = `translateX(${translate}%)`;
+    };
+    
+    const handleEnd = () => {
+        if (!isDragging || window.innerWidth > 768) return;
+        
+        isDragging = false;
+        track.style.transition = '';
+        
+        const diff = currentX - startX;
+        const threshold = window.innerWidth / 4;
+        
+        if (diff > threshold && currentIndex > 0) {
+            goToSlide(currentIndex - 1);
+        } else if (diff < -threshold && currentIndex < cards.length - 1) {
+            goToSlide(currentIndex + 1);
+        } else {
+            goToSlide(currentIndex);
+        }
+    };
+    
+    // Event listeners
+    track.addEventListener('mousedown', handleStart);
+    track.addEventListener('touchstart', handleStart);
+    track.addEventListener('mousemove', handleMove);
+    track.addEventListener('touchmove', handleMove);
+    track.addEventListener('mouseup', handleEnd);
+    track.addEventListener('touchend', handleEnd);
+    track.addEventListener('mouseleave', handleEnd);
+    
+    // Autoplay
+    if (window.innerWidth <= 768) {
+        setInterval(() => {
+            if (!isDragging) {
+                const nextIndex = (currentIndex + 1) % cards.length;
+                goToSlide(nextIndex);
+            }
+        }, CONFIG.testimonialAutoplaySpeed);
+    }
+    
+    // Reset on resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            track.style.transform = 'translateX(0)';
+        } else {
+            goToSlide(currentIndex);
+        }
+    });
+}
+
 // Previne Clique Direito em Imagens
 function preventImageRightClick() {
     document.addEventListener('contextmenu', (e) => {
@@ -371,6 +489,21 @@ function initializeSmoothScroll() {
                 });
             }
         });
+    });
+}
+
+// Fix para iOS Viewport
+function fixIOSViewport() {
+    // First we get the viewport height and multiply it by 1% to get a value for a vh unit
+    let vh = window.innerHeight * 0.01;
+    // Then we set the value in the --vh custom property to the root of the document
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    // We listen to the resize event
+    window.addEventListener('resize', () => {
+        // We execute the same script as before
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
     });
 }
 

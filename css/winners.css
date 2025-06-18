@@ -81,7 +81,7 @@
 .winners-track {
     display: flex;
     gap: var(--spacing-xl);
-    animation: marquee 40s linear infinite;
+    animation: marquee 60s linear infinite; /* Velocidade reduzida de 40s para 60s */
     width: max-content;
 }
 
@@ -234,6 +234,10 @@
         width: 50px;
     }
     
+    .winners-track {
+        animation-duration: 80s; /* Ainda mais lento no mobile */
+    }
+    
     .winner-card {
         min-width: 250px;
         padding: var(--spacing-lg);
@@ -245,6 +249,7 @@
     
     .winners-cta {
         padding: var(--spacing-lg);
+        margin: var(--spacing-2xl) var(--spacing-md);
     }
     
     .winners-cta p {
@@ -275,6 +280,14 @@
     .winner-card small {
         font-size: var(--text-xs);
     }
+    
+    .winners-cta {
+        padding: var(--spacing-md);
+    }
+    
+    .winners-cta p {
+        font-size: var(--text-base);
+    }
 }
 
 /* Pause on hover for entire section */
@@ -298,5 +311,20 @@
     }
     to {
         background-position: 200% center;
+    }
+}
+
+/* Touch device optimization */
+@media (hover: none) {
+    .winner-card:hover {
+        transform: none;
+        background: linear-gradient(135deg, rgba(var(--gold-rgb), 0.1) 0%, rgba(var(--gold-rgb), 0.05) 100%);
+        border-color: rgba(var(--gold-rgb), 0.3);
+        box-shadow: none;
+    }
+    
+    .winner-card:hover::before {
+        transform: rotate(-15deg);
+        opacity: 0.05;
     }
 }

@@ -33,7 +33,7 @@
     
     .container {
         max-width: 100%;
-        padding: 0 var(--spacing-md);
+        padding: 0 var(--spacing-lg);
     }
     
     /* Ajustes gerais de seções */
@@ -60,11 +60,22 @@
         --text-4xl: 2rem;
         --text-3xl: 1.5rem;
         --text-2xl: 1.25rem;
+        
+        /* Reduzir espaçamentos */
+        --spacing-4xl: 4rem;
+        --spacing-3xl: 3rem;
+        --spacing-2xl: 2rem;
+    }
+    
+    /* Container Mobile */
+    .container {
+        padding: 0 var(--spacing-md);
     }
     
     /* Alert Bar Mobile */
     .alert-bar {
         padding: var(--spacing-xs) var(--spacing-sm);
+        position: relative;
     }
     
     .alert-text {
@@ -97,6 +108,15 @@
     .steps-container {
         gap: var(--spacing-lg);
     }
+    
+    /* Section spacing */
+    section {
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .section-header {
+        margin-bottom: var(--spacing-2xl);
+    }
 }
 
 /* Mobile (320px - 480px) */
@@ -113,9 +133,10 @@
         --text-lg: 1rem;
         
         /* Reduced spacing for mobile */
-        --spacing-4xl: 4rem;
-        --spacing-3xl: 3rem;
-        --spacing-2xl: 2rem;
+        --spacing-4xl: 3rem;
+        --spacing-3xl: 2.5rem;
+        --spacing-2xl: 1.5rem;
+        --spacing-xl: 1.25rem;
     }
     
     /* Container mobile */
@@ -125,26 +146,29 @@
     
     /* Section spacing mobile */
     section {
-        padding: var(--spacing-2xl) 0;
+        padding: var(--spacing-xl) 0;
     }
     
     .section-header {
-        margin-bottom: var(--spacing-2xl);
+        margin-bottom: var(--spacing-xl);
+        text-align: center;
     }
     
     .section-title {
-        font-size: var(--text-3xl);
+        font-size: var(--text-2xl);
         margin-bottom: var(--spacing-sm);
+        line-height: 1.2;
     }
     
     .section-subtitle {
-        font-size: var(--text-base);
+        font-size: var(--text-sm);
+        line-height: 1.5;
     }
     
     /* Hide decorative elements on mobile */
     .bg-animation,
     .particles {
-        display: none;
+        opacity: 0.05;
     }
     
     /* Simplify animations on mobile */
@@ -160,9 +184,54 @@
         .testimonial-card:hover,
         .step-card:hover,
         .faq-item:hover {
-            transform: none;
-            box-shadow: none;
+            transform: none !important;
+            box-shadow: none !important;
         }
+    }
+    
+    /* Mobile specific adjustments */
+    .cta-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--text-sm);
+        gap: var(--spacing-sm);
+    }
+    
+    .cta-button i {
+        font-size: var(--text-lg);
+    }
+    
+    /* Trust badges mobile */
+    .trust-badge {
+        padding: var(--spacing-md);
+    }
+    
+    /* Winners section mobile */
+    .winners-marquee {
+        margin: var(--spacing-xl) 0;
+    }
+    
+    .winner-card {
+        min-width: 200px;
+        padding: var(--spacing-md);
+    }
+    
+    /* FAQ mobile */
+    .faq-item {
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .faq-question {
+        padding: var(--spacing-md);
+        font-size: var(--text-sm);
+    }
+    
+    /* CTA section mobile */
+    .cta-benefits {
+        padding: var(--spacing-lg);
+    }
+    
+    .cta-benefits li {
+        font-size: var(--text-sm);
     }
 }
 
@@ -178,11 +247,11 @@
     
     .cta-button {
         padding: var(--spacing-sm) var(--spacing-md);
-        font-size: var(--text-sm);
+        font-size: var(--text-xs);
     }
     
     .section-title {
-        font-size: var(--text-2xl);
+        font-size: var(--text-xl);
     }
 }
 
@@ -190,15 +259,58 @@
 @media (max-height: 500px) and (orientation: landscape) {
     .hero {
         min-height: auto;
-        padding: var(--spacing-2xl) 0;
+        padding: var(--spacing-xl) 0;
     }
     
-    .video-wrapper {
+    .vsl-container {
+        max-width: 500px;
+    }
+    
+    .video-responsive-wrapper {
         padding-bottom: 40%;
     }
     
     section {
-        padding: var(--spacing-2xl) 0;
+        padding: var(--spacing-xl) 0;
+    }
+}
+
+/* Fix margin e padding issues */
+@media (max-width: 768px) {
+    /* Reset margins that might cause horizontal scroll */
+    * {
+        max-width: 100%;
+    }
+    
+    /* Fix notification popup */
+    .notification-popup {
+        left: var(--spacing-sm);
+        right: var(--spacing-sm);
+        bottom: 100px;
+    }
+    
+    /* Fix whatsapp float button */
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+    }
+    
+    /* Fix overflow issues */
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Ensure no horizontal scroll */
+    .hero,
+    .testimonials,
+    .winners-section,
+    .trust-section,
+    .how-section,
+    .faq-section,
+    .final-cta {
+        overflow-x: hidden;
     }
 }
 
@@ -209,6 +321,7 @@
     .whatsapp-float,
     .notification-popup,
     .video-container,
+    .vsl-container,
     .bg-animation,
     .particles,
     .loading {
@@ -304,8 +417,8 @@
     }
     
     .whatsapp-float {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
     }
     
     /* Remove hover states on touch devices */
@@ -368,8 +481,8 @@
     
     /* Fix for iOS bounce scrolling */
     body {
-        position: fixed;
-        width: 100%;
+        position: relative;
+        height: 100%;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
