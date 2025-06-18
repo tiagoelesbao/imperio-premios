@@ -290,6 +290,13 @@
     }
 }
 
+/* Mobile: Desacelera marquee */
+@media (max-width: 768px) {
+    .winners-track {
+        animation-duration: 5s !important; /* Muito mais lento no mobile */
+    }
+}
+
 /* Pause on hover for entire section */
 .winners-section:hover .winners-track {
     animation-play-state: paused;

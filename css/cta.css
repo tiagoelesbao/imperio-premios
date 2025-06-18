@@ -458,4 +458,16 @@
         width: 40px;
         height: 40px;
     }
+
+    /* Mobile: Desacelera animação do WhatsApp float */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        animation: float 4.5s ease-in-out infinite !important;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+}
 }
