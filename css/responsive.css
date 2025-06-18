@@ -1,0 +1,394 @@
+/* ========================================
+   RESPONSIVE.CSS - Media Queries e Ajustes Responsivos Globais
+   ======================================== */
+
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    :root {
+        font-size: 18px;
+    }
+}
+
+/* Desktop (1024px - 1439px) */
+@media (max-width: 1439px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Tablet Landscape (768px - 1023px) */
+@media (max-width: 1023px) {
+    :root {
+        /* Ajuste de tamanhos de fonte */
+        --text-7xl: 4rem;
+        --text-6xl: 3.5rem;
+        --text-5xl: 2.75rem;
+        --text-4xl: 2.25rem;
+        --text-3xl: 1.75rem;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 var(--spacing-md);
+    }
+    
+    /* Ajustes gerais de seções */
+    section {
+        padding: var(--spacing-3xl) 0;
+    }
+    
+    .section-title {
+        font-size: var(--text-4xl);
+    }
+    
+    .section-subtitle {
+        font-size: var(--text-lg);
+    }
+}
+
+/* Tablet Portrait (481px - 767px) */
+@media (max-width: 767px) {
+    :root {
+        /* Ajuste adicional de fontes */
+        --text-7xl: 3.5rem;
+        --text-6xl: 3rem;
+        --text-5xl: 2.5rem;
+        --text-4xl: 2rem;
+        --text-3xl: 1.5rem;
+        --text-2xl: 1.25rem;
+    }
+    
+    /* Alert Bar Mobile */
+    .alert-bar {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .alert-text {
+        font-size: var(--text-xs);
+    }
+    
+    .alert-mobile {
+        display: inline;
+    }
+    
+    .alert-desktop {
+        display: none;
+    }
+    
+    /* Botões Mobile */
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--text-base);
+    }
+    
+    .cta-button i {
+        font-size: var(--text-xl);
+    }
+    
+    /* Grid adjustments */
+    .testimonial-grid,
+    .trust-badges,
+    .steps-container {
+        gap: var(--spacing-lg);
+    }
+}
+
+/* Mobile (320px - 480px) */
+@media (max-width: 480px) {
+    :root {
+        /* Mobile font sizes */
+        --text-7xl: 2.5rem;
+        --text-6xl: 2.25rem;
+        --text-5xl: 2rem;
+        --text-4xl: 1.75rem;
+        --text-3xl: 1.5rem;
+        --text-2xl: 1.25rem;
+        --text-xl: 1.125rem;
+        --text-lg: 1rem;
+        
+        /* Reduced spacing for mobile */
+        --spacing-4xl: 4rem;
+        --spacing-3xl: 3rem;
+        --spacing-2xl: 2rem;
+    }
+    
+    /* Container mobile */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    /* Section spacing mobile */
+    section {
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .section-header {
+        margin-bottom: var(--spacing-2xl);
+    }
+    
+    .section-title {
+        font-size: var(--text-3xl);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .section-subtitle {
+        font-size: var(--text-base);
+    }
+    
+    /* Hide decorative elements on mobile */
+    .bg-animation,
+    .particles {
+        display: none;
+    }
+    
+    /* Simplify animations on mobile */
+    * {
+        animation-duration: 0.3s !important;
+    }
+    
+    /* Disable hover effects on mobile */
+    @media (hover: none) {
+        .cta-button:hover,
+        .trust-badge:hover,
+        .winner-card:hover,
+        .testimonial-card:hover,
+        .step-card:hover,
+        .faq-item:hover {
+            transform: none;
+            box-shadow: none;
+        }
+    }
+}
+
+/* Very Small Mobile (below 320px) */
+@media (max-width: 319px) {
+    :root {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-xs);
+    }
+    
+    .cta-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--text-sm);
+    }
+    
+    .section-title {
+        font-size: var(--text-2xl);
+    }
+}
+
+/* Landscape Orientation Adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .video-wrapper {
+        padding-bottom: 40%;
+    }
+    
+    section {
+        padding: var(--spacing-2xl) 0;
+    }
+}
+
+/* Print Styles */
+@media print {
+    /* Hide non-essential elements */
+    .alert-bar,
+    .whatsapp-float,
+    .notification-popup,
+    .video-container,
+    .bg-animation,
+    .particles,
+    .loading {
+        display: none !important;
+    }
+    
+    /* Reset colors for print */
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .container {
+        max-width: 100%;
+    }
+    
+    /* Ensure text is readable */
+    * {
+        color: black !important;
+        background: white !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    a {
+        text-decoration: underline;
+    }
+    
+    /* Show URLs for links */
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .bg-animation,
+    .particles,
+    .loading-spinner {
+        display: none;
+    }
+    
+    .winners-track {
+        animation: none;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    /* Already dark by default, but ensure consistency */
+    :root {
+        color-scheme: dark;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --gold: #FFD700;
+        --green: #00FF00;
+        --black: #000000;
+        --white: #FFFFFF;
+    }
+    
+    * {
+        border-width: 2px !important;
+    }
+    
+    .cta-button {
+        border: 2px solid var(--white);
+    }
+}
+
+/* Touch Device Optimizations */
+@media (pointer: coarse) {
+    /* Larger touch targets */
+    .cta-button {
+        min-height: 48px;
+        min-width: 48px;
+    }
+    
+    .faq-question {
+        min-height: 48px;
+    }
+    
+    .whatsapp-float {
+        width: 80px;
+        height: 80px;
+    }
+    
+    /* Remove hover states on touch devices */
+    .testimonial-card:hover,
+    .winner-card:hover,
+    .trust-badge:hover,
+    .step-card:hover {
+        transform: none;
+    }
+}
+
+/* Retina Display Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+    /* Use higher quality images for retina */
+    .bg-animation {
+        background-image: 
+            radial-gradient(circle at 20% 50%, rgba(var(--gold-rgb), 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(var(--gold-rgb), 0.08) 0%, transparent 50%);
+    }
+}
+
+/* Utility Classes for Responsive */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+    
+    .desktop-only {
+        display: none;
+    }
+    
+    .text-center-mobile {
+        text-align: center;
+    }
+    
+    .order-first-mobile {
+        order: -1;
+    }
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    /* iOS specific fixes */
+    .hero {
+        min-height: -webkit-fill-available;
+    }
+    
+    .cta-button {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Fix for iOS bounce scrolling */
+    body {
+        position: fixed;
+        width: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Fix for older browsers */
+@supports not (display: grid) {
+    .hero-content,
+    .trust-badges,
+    .testimonial-grid,
+    .steps-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .hero-content > *,
+    .trust-badges > *,
+    .testimonial-grid > *,
+    .steps-container > * {
+        flex: 1 1 300px;
+    }
+}

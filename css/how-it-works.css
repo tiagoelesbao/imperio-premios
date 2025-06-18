@@ -1,0 +1,311 @@
+/* ========================================
+   HOW-IT-WORKS.CSS - Estilos da Seção How it Works
+   ======================================== */
+
+.how-section {
+    padding: var(--spacing-4xl) 0;
+    position: relative;
+    background: var(--black);
+    overflow: hidden;
+}
+
+/* Background Decoration */
+.how-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(var(--gold-rgb), 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Steps Container */
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-xl);
+    position: relative;
+    z-index: 1;
+}
+
+/* Step Card */
+.step-card {
+    text-align: center;
+    position: relative;
+    padding: var(--spacing-xl) var(--spacing-lg);
+    transition: all var(--transition-base);
+}
+
+/* Connecting Line */
+.step-card::after {
+    content: '';
+    position: absolute;
+    top: 60px;
+    right: -40%;
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+    opacity: 0.3;
+}
+
+.step-card:last-child::after {
+    display: none;
+}
+
+/* Step Icon Container */
+.step-icon {
+    position: relative;
+    display: inline-block;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Step Number */
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background: var(--gradient-gold);
+    border-radius: 50%;
+    font-size: var(--text-4xl);
+    font-weight: 900;
+    color: var(--white);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(var(--gold-rgb), 0.3);
+    transition: all var(--transition-base);
+}
+
+/* Rotating Glow */
+.step-number::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        var(--gold) 90deg,
+        transparent 180deg
+    );
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: rotateGlow 3s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Pulse Effect */
+.step-number::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(var(--gold-rgb), 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    animation: pulse 2s ease-in-out infinite;
+    z-index: -2;
+}
+
+/* Hover Effects */
+.step-card:hover {
+    transform: translateY(-10px);
+}
+
+.step-card:hover .step-number {
+    background: var(--gradient-green);
+    box-shadow: 0 15px 40px rgba(var(--green-rgb), 0.4);
+}
+
+.step-card:hover .step-number::before {
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        var(--green) 90deg,
+        transparent 180deg
+    );
+}
+
+/* Step Title */
+.step-title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    color: var(--white);
+}
+
+/* Step Description */
+.step-description {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--gray-light);
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+/* Special Styling for Each Step */
+.step-card:nth-child(1) .step-number {
+    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+}
+
+.step-card:nth-child(2) .step-number {
+    background: var(--gradient-gold);
+}
+
+.step-card:nth-child(3) .step-number {
+    background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+}
+
+.step-card:nth-child(4) .step-number {
+    background: var(--gradient-green);
+}
+
+/* Animation */
+.step-card {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.step-card.visible {
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+@keyframes slideInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step-card:nth-child(1) { animation-delay: 0.1s; }
+.step-card:nth-child(2) { animation-delay: 0.2s; }
+.step-card:nth-child(3) { animation-delay: 0.3s; }
+.step-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Mobile Timeline Layout */
+@media (max-width: 1024px) {
+    .steps-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-2xl);
+    }
+    
+    .step-card::after {
+        display: none;
+    }
+    
+    /* Add vertical line for mobile */
+    .steps-container::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, transparent 0%, var(--gold) 50%, transparent 100%);
+        opacity: 0.3;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .how-section {
+        padding: var(--spacing-3xl) 0;
+    }
+    
+    .steps-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .steps-container::before {
+        left: 50px;
+    }
+    
+    .step-card {
+        text-align: left;
+        padding-left: 100px;
+        position: relative;
+    }
+    
+    .step-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin-bottom: 0;
+    }
+    
+    .step-number {
+        width: 80px;
+        height: 80px;
+        font-size: var(--text-3xl);
+    }
+    
+    .step-title {
+        font-size: var(--text-xl);
+        margin-top: var(--spacing-sm);
+    }
+    
+    .step-description {
+        text-align: left;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .steps-container {
+        gap: var(--spacing-lg);
+    }
+    
+    .step-card {
+        padding-left: 80px;
+    }
+    
+    .steps-container::before {
+        left: 30px;
+    }
+    
+    .step-number {
+        width: 60px;
+        height: 60px;
+        font-size: var(--text-2xl);
+    }
+    
+    .step-number::before,
+    .step-number::after {
+        display: none;
+    }
+    
+    .step-title {
+        font-size: var(--text-lg);
+    }
+    
+    .step-description {
+        font-size: var(--text-sm);
+    }
+}
+
+/* Alternative Card Layout for Very Small Screens */
+@media (max-width: 360px) {
+    .step-card {
+        text-align: center;
+        padding: var(--spacing-lg);
+    }
+    
+    .step-icon {
+        position: relative;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .steps-container::before {
+        display: none;
+    }
+}

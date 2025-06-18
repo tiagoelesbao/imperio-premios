@@ -1,0 +1,461 @@
+/* ========================================
+   CTA.CSS - Estilos da Seção CTA Final e Componentes Globais
+   ======================================== */
+
+/* Final CTA Section */
+.final-cta {
+    padding: var(--spacing-4xl) 0;
+    position: relative;
+    text-align: center;
+    background: 
+        radial-gradient(circle at center top, rgba(var(--gold-rgb), 0.2) 0%, transparent 50%),
+        radial-gradient(circle at center bottom, rgba(var(--green-rgb), 0.1) 0%, transparent 50%);
+    overflow: hidden;
+}
+
+/* Animated Background Elements */
+.final-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,184,0,0.1)" stroke-width="0.5"/></svg>');
+    background-size: 100px 100px;
+    animation: floatPattern 30s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatPattern {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* CTA Content Container */
+.cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* CTA Title */
+.cta-title {
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-6xl));
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-2xl);
+    animation: fadeInScale 1s ease-out;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Countdown Wrapper */
+.countdown-wrapper {
+    margin: var(--spacing-3xl) 0;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.countdown-label {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--gray-light);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Countdown Timer */
+.countdown-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl) var(--spacing-3xl);
+    background: linear-gradient(135deg, rgba(var(--gold-rgb), 0.1) 0%, rgba(var(--gold-rgb), 0.05) 100%);
+    border: 2px solid var(--gold);
+    border-radius: var(--radius-xl);
+    box-shadow: 
+        0 10px 40px rgba(var(--gold-rgb), 0.2),
+        inset 0 1px 0 rgba(var(--gold-rgb), 0.3);
+}
+
+/* Countdown Item */
+.countdown-item {
+    text-align: center;
+    position: relative;
+}
+
+.countdown-value {
+    font-size: var(--text-5xl);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 20px rgba(var(--gold-rgb), 0.5);
+}
+
+.countdown-text {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--gray-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: var(--spacing-xs);
+}
+
+.countdown-separator {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--gold);
+    animation: blink 1s ease-in-out infinite;
+}
+
+/* CTA Benefits */
+.cta-benefits {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--gold-rgb), 0.2);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    margin: var(--spacing-3xl) auto;
+    max-width: 700px;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.cta-benefits h3 {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
+    color: var(--gold);
+}
+
+.cta-benefits ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: left;
+}
+
+.cta-benefits li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    font-size: var(--text-lg);
+    padding: var(--spacing-sm) 0;
+}
+
+.cta-benefits i {
+    color: var(--green);
+    font-size: var(--text-2xl);
+    flex-shrink: 0;
+}
+
+/* Large CTA Button */
+.cta-button-large {
+    margin: var(--spacing-2xl) 0;
+    padding: var(--spacing-xl) var(--spacing-4xl);
+    font-size: var(--text-xl);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.cta-button-large::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-green);
+    border-radius: var(--radius-full);
+    z-index: -1;
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity var(--transition-base);
+}
+
+.cta-button-large:hover::after {
+    opacity: 1;
+}
+
+/* Guarantee Section */
+.guarantee {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-3xl);
+    padding: var(--spacing-lg);
+    animation: fadeInUp 1s ease-out 0.8s both;
+}
+
+.guarantee img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 10px rgba(var(--gold-rgb), 0.3));
+}
+
+.guarantee p {
+    text-align: left;
+    font-size: var(--text-base);
+    color: var(--gray-light);
+    margin: 0;
+}
+
+/* Floating WhatsApp Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--green);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(var(--green-rgb), 0.5);
+    z-index: var(--z-fixed);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    overflow: hidden;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(var(--green-rgb), 0.6);
+}
+
+.whatsapp-float i {
+    font-size: var(--text-3xl);
+    color: var(--white);
+}
+
+.whatsapp-float-text {
+    position: absolute;
+    right: 100%;
+    margin-right: var(--spacing-md);
+    background: var(--black);
+    color: var(--white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all var(--transition-base);
+    pointer-events: none;
+}
+
+.whatsapp-float:hover .whatsapp-float-text {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Floating Animation */
+.whatsapp-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Notification Popup */
+.notification-popup {
+    position: fixed;
+    bottom: 120px;
+    left: 30px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--gold);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    transform: translateX(-400px);
+    transition: transform var(--transition-slow);
+    z-index: var(--z-notification);
+    max-width: 350px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.notification-popup.show {
+    transform: translateX(0);
+}
+
+.notification-popup img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+}
+
+.notification-content strong {
+    display: block;
+    color: var(--gold);
+    font-size: var(--text-base);
+    margin-bottom: var(--spacing-xs);
+}
+
+.notification-text {
+    font-size: var(--text-sm);
+    color: var(--gray-light);
+}
+
+.notification-close {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: none;
+    border: none;
+    color: var(--gray);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    transition: color var(--transition-base);
+}
+
+.notification-close:hover {
+    color: var(--white);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .final-cta {
+        padding: var(--spacing-3xl) 0;
+    }
+    
+    .cta-title {
+        font-size: var(--text-3xl);
+    }
+    
+    .countdown-timer {
+        padding: var(--spacing-lg) var(--spacing-xl);
+        gap: var(--spacing-sm);
+    }
+    
+    .countdown-value {
+        font-size: var(--text-3xl);
+    }
+    
+    .countdown-separator {
+        font-size: var(--text-2xl);
+    }
+    
+    .cta-benefits {
+        padding: var(--spacing-xl);
+    }
+    
+    .cta-benefits h3 {
+        font-size: var(--text-xl);
+    }
+    
+    .cta-benefits li {
+        font-size: var(--text-base);
+    }
+    
+    .cta-button-large {
+        width: 100%;
+        padding: var(--spacing-lg) var(--spacing-xl);
+        font-size: var(--text-lg);
+    }
+    
+    .guarantee {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .guarantee p {
+        text-align: center;
+    }
+    
+    .whatsapp-float {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .whatsapp-float i {
+        font-size: var(--text-2xl);
+    }
+    
+    .notification-popup {
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-title {
+        font-size: var(--text-2xl);
+    }
+    
+    .countdown-label {
+        font-size: var(--text-base);
+    }
+    
+    .countdown-timer {
+        padding: var(--spacing-md);
+        gap: var(--spacing-xs);
+    }
+    
+    .countdown-value {
+        font-size: var(--text-2xl);
+    }
+    
+    .countdown-text {
+        font-size: 10px;
+    }
+    
+    .countdown-separator {
+        font-size: var(--text-xl);
+    }
+    
+    .cta-benefits {
+        padding: var(--spacing-lg);
+    }
+    
+    .cta-benefits h3 {
+        font-size: var(--text-lg);
+    }
+    
+    .cta-benefits li {
+        font-size: var(--text-sm);
+        gap: var(--spacing-sm);
+    }
+    
+    .cta-benefits i {
+        font-size: var(--text-lg);
+    }
+    
+    .cta-button-large {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--text-base);
+    }
+    
+    .notification-popup {
+        padding: var(--spacing-md);
+        bottom: 100px;
+    }
+    
+    .notification-popup img {
+        width: 40px;
+        height: 40px;
+    }
+}
