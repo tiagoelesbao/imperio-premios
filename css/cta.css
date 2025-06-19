@@ -1,16 +1,17 @@
 /* ========================================
-   CTA.CSS - Estilos da Seção CTA Final (CORRIGIDO)
+   CTA.CSS - Estilos da Seção CTA Final (CORRIGIDO - SEM GAP)
    ======================================== */
 
 /* Final CTA Section - Alinhamento corrigido */
 .final-cta {
-    padding: var(--spacing-3xl) 0; /* Reduzido para alinhar com outras seções */
+    padding: var(--spacing-3xl) 0 var(--spacing-2xl) 0; /* Padding reduzido */
     position: relative;
     text-align: center;
     background: 
         radial-gradient(circle at center top, rgba(var(--gold-rgb), 0.2) 0%, transparent 50%),
         radial-gradient(circle at center bottom, rgba(var(--green-rgb), 0.1) 0%, transparent 50%);
     overflow: hidden;
+    margin: 0 !important;
 }
 
 /* Animated Background Elements */
@@ -62,7 +63,7 @@
 
 /* Countdown Wrapper */
 .countdown-wrapper {
-    margin: var(--spacing-2xl) 0; /* Reduzido para melhor alinhamento */
+    margin: var(--spacing-2xl) 0;
     animation: fadeInUp 1s ease-out 0.2s both;
 }
 
@@ -125,7 +126,7 @@
     border: 1px solid rgba(var(--gold-rgb), 0.2);
     border-radius: var(--radius-xl);
     padding: var(--spacing-2xl);
-    margin: var(--spacing-2xl) auto; /* Reduzido para melhor alinhamento */
+    margin: var(--spacing-2xl) auto;
     max-width: 700px;
     animation: fadeInUp 1s ease-out 0.4s both;
 }
@@ -161,7 +162,7 @@
 
 /* Large CTA Button - Alinhamento corrigido */
 .cta-button-large {
-    margin: var(--spacing-xl) 0; /* Ajustado para melhor alinhamento */
+    margin: var(--spacing-xl) 0;
     padding: var(--spacing-xl) var(--spacing-4xl);
     font-size: var(--text-xl);
     position: relative;
@@ -194,7 +195,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-lg);
-    margin-top: var(--spacing-2xl); /* Reduzido para melhor alinhamento */
+    margin-top: var(--spacing-xl);
     padding: var(--spacing-lg);
     animation: fadeInUp 1s ease-out 0.8s both;
 }
@@ -336,7 +337,7 @@
 /* Responsive */
 @media (max-width: 768px) {
     .final-cta {
-        padding: var(--spacing-2xl) 0; /* Ainda menor no mobile */
+        padding: var(--spacing-2xl) 0 var(--spacing-xl) 0; /* Ainda menor no mobile */
     }
     
     .cta-title {
@@ -379,7 +380,7 @@
     .guarantee {
         flex-direction: column;
         text-align: center;
-        margin-top: var(--spacing-xl);
+        margin-top: var(--spacing-lg);
     }
     
     .guarantee p {
@@ -406,7 +407,7 @@
 
 @media (max-width: 480px) {
     .final-cta {
-        padding: var(--spacing-xl) 0;
+        padding: var(--spacing-xl) 0 var(--spacing-lg) 0;
     }
     
     .cta-title {
@@ -463,7 +464,7 @@
     }
     
     .guarantee {
-        margin-top: var(--spacing-lg);
+        margin-top: var(--spacing-md);
         padding: var(--spacing-md);
     }
     

@@ -614,3 +614,17 @@ html::-webkit-scrollbar-thumb {
 html::-webkit-scrollbar-thumb:hover {
     background: var(--gold);
 }
+
+/* Footer - Correção do gap */
+.footer {
+    background: var(--dark);
+    padding: var(--spacing-2xl) 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 184, 0, 0.2);
+    margin-top: 0 !important; /* Remove margin-top */
+}
+
+/* Remove gaps entre todas as seções */
+section {
+    margin: 0 !important;
+}

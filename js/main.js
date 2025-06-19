@@ -1,5 +1,5 @@
 /* ========================================
-   MAIN.JS - JavaScript Principal Corrigido
+   MAIN.JS - JavaScript Principal Atualizado
    ======================================== */
 
 // Configurações Globais
@@ -10,8 +10,7 @@ const CONFIG = {
     onlineUsers: 2384,
     animationDuration: 300,
     notificationInterval: 15000,
-    particleCount: 50,
-    testimonialAutoplaySpeed: 5000 // 5 segundos para o carousel
+    particleCount: 50
 };
 
 // Estado Global
@@ -19,8 +18,7 @@ const state = {
     timeLeft: CONFIG.countdownTime,
     spots: CONFIG.spotsAvailable,
     onlineCount: CONFIG.onlineUsers,
-    isLoading: true,
-    currentTestimonial: 0
+    isLoading: true
 };
 
 // Inicialização
@@ -52,12 +50,6 @@ function initializeApp() {
     
     // Inicializa botões CTA
     initializeCTAButtons();
-    
-    // Inicializa winners marquee
-    initializeWinnersMarquee();
-    
-    // Inicializa carousel de testimonials
-    initializeTestimonialCarousel();
     
     // Previne clique com botão direito nas imagens
     preventImageRightClick();
@@ -255,10 +247,11 @@ function initializeScrollObservers() {
     // Observa elementos específicos
     const elementsToObserve = [
         '.trust-badge',
-        '.testimonial-card',
         '.step-card',
         '.faq-item',
-        '.slide-up'
+        '.slide-up',
+        '.offer-image',
+        '.offer-text'
     ];
     
     elementsToObserve.forEach(selector => {
@@ -312,158 +305,6 @@ function createRippleEffect(e, button) {
     setTimeout(() => {
         ripple.remove();
     }, 600);
-}
-
-// Winners Marquee
-function initializeWinnersMarquee() {
-    const winnersData = [
-        { name: 'Maria Silva', amount: 'R$ 1.350', time: 'Há 12 minutos', big: true },
-        { name: 'João Santos', amount: 'R$ 600', time: 'Há 25 minutos' },
-        { name: 'Ana Costa', amount: 'R$ 1.800', time: 'Há 37 minutos', big: true },
-        { name: 'Carlos Oliveira', amount: 'R$ 200', time: 'Há 45 minutos' },
-        { name: 'Juliana Mendes', amount: 'R$ 200', time: 'Há 1 hora' },
-        { name: 'Roberto Lima', amount: 'R$ 100', time: 'Há 1 hora' },
-        { name: 'Patricia Souza', amount: 'R$ 1.500', time: 'Há 2 horas', big: true },
-        { name: 'Fernando Costa', amount: 'R$ 600', time: 'Há 2 horas' },
-        { name: 'Camila Rocha', amount: 'R$ 1.500', time: 'Há 3 horas', big: true },
-        { name: 'Ricardo Alves', amount: 'R$ 800', time: 'Há 3 horas' }
-    ];
-    
-    const track = document.getElementById('winnersTrack');
-    if (!track) return;
-    
-    // Cria cards duplicados para loop infinito
-    const createWinnerCards = () => {
-        winnersData.forEach(winner => {
-            const card = createWinnerCard(winner);
-            track.appendChild(card);
-        });
-        
-        // Duplica para loop infinito
-        winnersData.forEach(winner => {
-            const card = createWinnerCard(winner);
-            track.appendChild(card);
-        });
-    };
-    
-    createWinnerCards();
-}
-
-// Cria Card de Ganhador
-function createWinnerCard(winner) {
-    const card = document.createElement('div');
-    card.className = `winner-card ${winner.big ? 'big-winner' : ''}`;
-    
-    card.innerHTML = `
-        <img src="https://i.pravatar.cc/60?img=${Math.floor(Math.random() * 70)}" 
-             alt="Foto de ${winner.name}" 
-             width="60" 
-             height="60">
-        <strong>${winner.name}</strong>
-        <div class="winner-amount">${winner.amount}</div>
-        <small>${winner.time}</small>
-    `;
-    
-    return card;
-}
-
-// Testimonial Carousel para Mobile
-function initializeTestimonialCarousel() {
-    const track = document.querySelector('.testimonial-track');
-    const dots = document.querySelectorAll('.carousel-dots .dot');
-    const cards = document.querySelectorAll('.testimonial-card');
-    
-    if (!track || !dots.length || !cards.length) return;
-    
-    let currentIndex = 0;
-    let startX = 0;
-    let currentX = 0;
-    let isDragging = false;
-    
-    // Função para mudar slide
-    const goToSlide = (index) => {
-        currentIndex = index;
-        if (window.innerWidth <= 768) {
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        } else {
-            track.style.transform = 'translateX(0)';
-        }
-        
-        // Atualiza dots
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
-        });
-    };
-    
-    // Click nos dots
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => goToSlide(index));
-    });
-    
-    // Touch/Swipe support
-    const handleStart = (e) => {
-        if (window.innerWidth > 768) return;
-        
-        isDragging = true;
-        startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        track.style.transition = 'none';
-    };
-    
-    const handleMove = (e) => {
-        if (!isDragging || window.innerWidth > 768) return;
-        
-        e.preventDefault();
-        currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        const diff = currentX - startX;
-        const translate = -currentIndex * 100 + (diff / window.innerWidth) * 100;
-        track.style.transform = `translateX(${translate}%)`;
-    };
-    
-    const handleEnd = () => {
-        if (!isDragging || window.innerWidth > 768) return;
-        
-        isDragging = false;
-        track.style.transition = '';
-        
-        const diff = currentX - startX;
-        const threshold = window.innerWidth / 4;
-        
-        if (diff > threshold && currentIndex > 0) {
-            goToSlide(currentIndex - 1);
-        } else if (diff < -threshold && currentIndex < cards.length - 1) {
-            goToSlide(currentIndex + 1);
-        } else {
-            goToSlide(currentIndex);
-        }
-    };
-    
-    // Event listeners
-    track.addEventListener('mousedown', handleStart);
-    track.addEventListener('touchstart', handleStart);
-    track.addEventListener('mousemove', handleMove);
-    track.addEventListener('touchmove', handleMove);
-    track.addEventListener('mouseup', handleEnd);
-    track.addEventListener('touchend', handleEnd);
-    track.addEventListener('mouseleave', handleEnd);
-    
-    // Autoplay
-    if (window.innerWidth <= 768) {
-        setInterval(() => {
-            if (!isDragging) {
-                const nextIndex = (currentIndex + 1) % cards.length;
-                goToSlide(nextIndex);
-            }
-        }, CONFIG.testimonialAutoplaySpeed);
-    }
-    
-    // Reset on resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            track.style.transform = 'translateX(0)';
-        } else {
-            goToSlide(currentIndex);
-        }
-    });
 }
 
 // Previne Clique Direito em Imagens

@@ -52,18 +52,17 @@
     overflow: hidden; /* Previne ícone de sair dos limites */
 }
 
+/* Animação de "respiração" super lenta */
 .crown-icon {
-    font-size: var(--text-2xl);
-    animation: gentleBounce 2s ease-in-out infinite;
+    animation: mobileGentlePulse 150s ease-in-out infinite;
 }
 
-/* Animação mais suave para a coroa */
-@keyframes gentleBounce {
+@keyframes mobileGentlePulse {
     0%, 100% {
-        transform: translateY(0);
+        transform: scale(1);
     }
     50% {
-        transform: translateY(-5px);
+        transform: scale(1.02); /* Cresce apenas 2% */
     }
 }
 
@@ -460,17 +459,17 @@
         }
     }
     
-    /* Coroa com animação mais lenta no mobile */
+    /* Animação de "respiração" super lenta */
     .crown-icon {
-        animation: mobileGentleBounce 4s ease-in-out infinite;
+        animation: mobileGentlePulse 150s ease-in-out infinite;
     }
-    
-    @keyframes mobileGentleBounce {
+
+    @keyframes mobileGentlePulse {
         0%, 100% {
-            transform: translateY(0);
+            transform: scale(1);
         }
         50% {
-            transform: translateY(-3px);
+            transform: scale(1.02); /* Cresce apenas 2% */
         }
     }
     
