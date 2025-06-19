@@ -317,16 +317,16 @@ function createRippleEffect(e, button) {
 // Winners Marquee
 function initializeWinnersMarquee() {
     const winnersData = [
-        { name: 'Maria Silva', amount: 'R$ 5.000', time: 'Há 12 minutos', big: true },
-        { name: 'João Santos', amount: 'R$ 2.500', time: 'Há 25 minutos' },
-        { name: 'Ana Costa', amount: 'R$ 8.000', time: 'Há 37 minutos', big: true },
-        { name: 'Carlos Oliveira', amount: 'R$ 1.000', time: 'Há 45 minutos' },
-        { name: 'Juliana Mendes', amount: 'R$ 3.500', time: 'Há 1 hora' },
-        { name: 'Roberto Lima', amount: 'R$ 500', time: 'Há 1 hora' },
-        { name: 'Patricia Souza', amount: 'R$ 4.200', time: 'Há 2 horas', big: true },
-        { name: 'Fernando Costa', amount: 'R$ 750', time: 'Há 2 horas' },
-        { name: 'Camila Rocha', amount: 'R$ 6.000', time: 'Há 3 horas', big: true },
-        { name: 'Ricardo Alves', amount: 'R$ 1.800', time: 'Há 3 horas' }
+        { name: 'Maria Silva', amount: 'R$ 1.350', time: 'Há 12 minutos', big: true },
+        { name: 'João Santos', amount: 'R$ 600', time: 'Há 25 minutos' },
+        { name: 'Ana Costa', amount: 'R$ 1.800', time: 'Há 37 minutos', big: true },
+        { name: 'Carlos Oliveira', amount: 'R$ 200', time: 'Há 45 minutos' },
+        { name: 'Juliana Mendes', amount: 'R$ 200', time: 'Há 1 hora' },
+        { name: 'Roberto Lima', amount: 'R$ 100', time: 'Há 1 hora' },
+        { name: 'Patricia Souza', amount: 'R$ 1.500', time: 'Há 2 horas', big: true },
+        { name: 'Fernando Costa', amount: 'R$ 600', time: 'Há 2 horas' },
+        { name: 'Camila Rocha', amount: 'R$ 1.500', time: 'Há 3 horas', big: true },
+        { name: 'Ricardo Alves', amount: 'R$ 800', time: 'Há 3 horas' }
     ];
     
     const track = document.getElementById('winnersTrack');

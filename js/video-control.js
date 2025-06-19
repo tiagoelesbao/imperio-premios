@@ -1,5 +1,5 @@
 /* ========================================
-   VIDEO-CONTROL.JS - Controle de Som do VSL (CORRIGIDO)
+   VIDEO-CONTROL.JS - Controle de Som do VSL (MOBILE FEEDBACK FIXED)
    ======================================== */
 
 // Configurações do Vídeo
@@ -102,7 +102,7 @@ function initializeVideoControls() {
     monitorVideoState(video);
 }
 
-// Toggle Som do Vídeo (SIMPLIFICADO)
+// Toggle Som do Vídeo (COM RESTART)
 function toggleSound(video) {
     console.log('Toggle sound chamado. Muted atual:', video.muted);
     
@@ -110,24 +110,39 @@ function toggleSound(video) {
     const overlay = document.getElementById('vslOverlay');
     const soundWrapper = document.getElementById('soundControlWrapper');
     const soundStatus = document.getElementById('vslSoundStatus');
+    const soundAlertText = document.querySelector('.sound-alert-text strong');
+    const soundAlertSpan = document.querySelector('.sound-alert-text span');
+    
+    // Atualiza textos do overlay
+    if (soundAlertText) {
+        soundAlertText.textContent = '🔊 Ative o som para ouvir a apresentação!';
+    }
+    if (soundAlertSpan) {
+        soundAlertSpan.textContent = 'Clique no vídeo ou no botão';
+    }
     
     if (video.muted) {
         // ATIVAR SOM
         console.log('Ativando som...');
         
-        // Primeiro tenta dar play se o vídeo estiver pausado
-        if (video.paused) {
-            video.play().then(() => {
-                console.log('Vídeo iniciado com sucesso');
-            }).catch(err => {
-                console.error('Erro ao iniciar vídeo:', err);
-            });
-        }
+        // Reinicia o vídeo do início
+        video.currentTime = 0;
         
-        // Desmuta o vídeo
-        video.muted = false;
-        videoState.isMuted = false;
-        videoState.hasInteracted = true;
+        // Primeiro tenta dar play se o vídeo estiver pausado
+        video.play().then(() => {
+            console.log('Vídeo iniciado com sucesso');
+            
+            // Desmuta o vídeo após iniciar
+            video.muted = false;
+            videoState.isMuted = false;
+            videoState.hasInteracted = true;
+            
+        }).catch(err => {
+            console.error('Erro ao iniciar vídeo:', err);
+            // Tenta novamente com click simulado
+            video.muted = false;
+            video.play();
+        });
         
         // Atualiza interface
         if (soundIcon) soundIcon.className = 'fas fa-volume-up';
@@ -136,7 +151,7 @@ function toggleSound(video) {
             const statusIcon = soundStatus.querySelector('i');
             const statusText = soundStatus.querySelector('span');
             if (statusIcon) statusIcon.className = 'fas fa-volume-up';
-            if (statusText) statusText.textContent = 'Som ativado - Aproveite os depoimentos!';
+            if (statusText) statusText.textContent = 'Som ativado!';
             soundStatus.classList.add('active');
         }
         
@@ -153,7 +168,7 @@ function toggleSound(video) {
         // Feedback
         showSuccessFeedback();
         
-        console.log('Som ativado com sucesso!');
+        console.log('Som ativado!');
         
     } else {
         // DESATIVAR SOM
@@ -169,7 +184,7 @@ function toggleSound(video) {
             const statusIcon = soundStatus.querySelector('i');
             const statusText = soundStatus.querySelector('span');
             if (statusIcon) statusIcon.className = 'fas fa-volume-mute';
-            if (statusText) statusText.textContent = 'Vídeo sem som - Clique para ativar';
+            if (statusText) statusText.textContent = 'Som desativado';
             soundStatus.classList.remove('active');
         }
         
@@ -197,7 +212,7 @@ function startAttentionAnimations() {
             if (window.showNotification && Math.random() > 0.7) {
                 window.showNotification({
                     title: '🔊 Não perca!',
-                    message: 'Ative o som para ouvir depoimentos incríveis',
+                    message: 'Ative o som para entender como funciona',
                     type: 'warning',
                     duration: 4000
                 });
@@ -236,38 +251,78 @@ function monitorVideoState(video) {
             
             if (watchTime === 10) {
                 console.log('10 segundos assistidos');
+                if (window.trackEvent) {
+                    window.trackEvent('Video_Engagement', {
+                        action: 'watched_10_seconds',
+                        muted: video.muted
+                    });
+                }
             } else if (watchTime === 30) {
                 console.log('30 segundos assistidos');
+                if (window.trackEvent) {
+                    window.trackEvent('Video_Engagement', {
+                        action: 'watched_30_seconds',
+                        muted: video.muted
+                    });
+                }
             }
         }
     }, 1000);
 }
 
-// Feedback visual
+// Feedback visual OTIMIZADO PARA MOBILE
 function showSuccessFeedback() {
     const feedback = document.createElement('div');
+    feedback.className = 'sound-feedback-popup';
     feedback.innerHTML = `
         <i class="fas fa-check-circle"></i>
-        <span>Som ativado com sucesso!</span>
+        <span>Som ativado!</span>
     `;
     
-    feedback.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: #00D563;
-        color: white;
-        padding: 20px 40px;
-        border-radius: 50px;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        z-index: 9999;
-        box-shadow: 0 10px 30px rgba(0, 213, 99, 0.5);
-        animation: feedbackPop 0.5s ease-out;
-    `;
+    // Detecta se é mobile
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        feedback.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #00D563;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
+            box-shadow: 0 8px 20px rgba(0, 213, 99, 0.5);
+            animation: feedbackPop 0.5s ease-out;
+            white-space: nowrap;
+            font-size: 14px;
+            min-width: 150px;
+            justify-content: center;
+        `;
+    } else {
+        feedback.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #00D563;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0, 213, 99, 0.5);
+            animation: feedbackPop 0.5s ease-out;
+        `;
+    }
     
     document.body.appendChild(feedback);
     
@@ -308,7 +363,7 @@ function getCookie(name) {
     return null;
 }
 
-// CSS para animações
+// CSS para animações e correções mobile
 const styles = `
 <style>
 .sound-control-wrapper.super-pulse .sound-control-btn {
@@ -342,6 +397,102 @@ const styles = `
 .sound-control-wrapper.playing {
     opacity: 0 !important;
     pointer-events: none !important;
+}
+
+/* Correção específica para o feedback no mobile */
+.sound-feedback-popup {
+    white-space: nowrap !important;
+}
+
+.sound-feedback-popup i {
+    font-size: 20px !important;
+    flex-shrink: 0;
+}
+
+.sound-feedback-popup span {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+}
+
+/* Mobile: Animações mais lentas e correções */
+@media (max-width: 768px) {
+    .sound-control-wrapper.super-pulse .sound-control-btn {
+        animation-duration: 0.8s !important;
+    }
+    
+    /* Feedback mobile específico */
+    .sound-feedback-popup {
+        padding: 10px 20px !important;
+        font-size: 13px !important;
+        min-width: 140px !important;
+    }
+    
+    .sound-feedback-popup i {
+        font-size: 16px !important;
+    }
+    
+    /* Correção para quebra de linha no mobile */
+    .vsl-sound-status {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+        padding: 0 10px !important;
+    }
+    
+    .vsl-sound-status span {
+        display: inline !important;
+        white-space: nowrap !important;
+    }
+    
+    .vsl-info p {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: 12px !important;
+    }
+}
+
+/* Ajuste específico para telas muito pequenas */
+@media (max-width: 480px) {
+    .sound-feedback-popup {
+        padding: 8px 16px !important;
+        font-size: 12px !important;
+        min-width: 120px !important;
+        gap: 8px !important;
+    }
+    
+    .sound-feedback-popup i {
+        font-size: 14px !important;
+    }
+    
+    .vsl-sound-status {
+        font-size: 11px !important;
+    }
+    
+    .vsl-sound-status span {
+        display: none !important;
+    }
+    
+    /* Mostra apenas o ícone e status básico */
+    .vsl-sound-status.active::after {
+        content: "Ativado" !important;
+        margin-left: 5px;
+        color: #00D563;
+    }
+    
+    .vsl-sound-status:not(.active)::after {
+        content: "Clique para ativar" !important;
+        margin-left: 5px;
+    }
+}
+
+/* Correção específica para o vídeo no modo vertical */
+@media (max-width: 768px) and (max-aspect-ratio: 9/16) {
+    .sound-feedback-popup {
+        top: 40% !important;
+    }
 }
 </style>
 `;

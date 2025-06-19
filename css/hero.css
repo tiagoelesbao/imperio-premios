@@ -1,8 +1,7 @@
 /* ========================================
-   HERO.CSS - Estilos da Seção Hero VSL Format (ATUALIZADO)
+   HERO.CSS - Estilos da Seção Hero VSL Format (TOTALMENTE CORRIGIDO)
    ======================================== */
 
-/* Estilos anteriores mantidos... */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -50,11 +49,22 @@
     font-weight: 600;
     color: var(--gold);
     animation: fadeInUp 0.8s ease-out;
+    overflow: hidden; /* Previne ícone de sair dos limites */
 }
 
 .crown-icon {
     font-size: var(--text-2xl);
-    animation: bounce 2s ease-in-out infinite;
+    animation: gentleBounce 2s ease-in-out infinite;
+}
+
+/* Animação mais suave para a coroa */
+@keyframes gentleBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 .hero-title-vsl {
@@ -75,7 +85,7 @@
 
 /* VSL Container */
 .vsl-container {
-    margin: var(--spacing-3xl) auto;
+    margin: var(--spacing-2xl) auto;
     max-width: 900px;
     position: relative;
     animation: fadeInUp 1s ease-out 0.4s both;
@@ -88,6 +98,7 @@
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     background: var(--black);
+    cursor: pointer;
 }
 
 .video-responsive-wrapper {
@@ -95,6 +106,7 @@
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .vsl-video {
@@ -106,20 +118,18 @@
     object-fit: contain;
     background: #000;
     cursor: pointer;
+    pointer-events: auto;
 }
 
-/* ======================================== 
-   NOVOS ESTILOS - CONTROLE DE SOM EMERGENTE
-   ======================================== */
-
-/* Wrapper do Controle de Som */
+/* Controle de Som Centralizado */
 .sound-control-wrapper {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 20;
+    z-index: 25;
     transition: all 0.3s ease;
+    pointer-events: auto;
 }
 
 .sound-control-wrapper.playing {
@@ -127,7 +137,6 @@
     pointer-events: none;
 }
 
-/* Botão Principal de Som */
 .sound-control-btn {
     display: flex;
     align-items: center;
@@ -141,33 +150,20 @@
     box-shadow: 
         0 10px 30px rgba(255, 59, 59, 0.5),
         0 0 0 0 rgba(255, 59, 59, 0.4);
-    animation: 
-        soundPulse 2s ease-in-out infinite,
-        shadowPulse 2s ease-in-out infinite;
+    animation: soundPulse 2s ease-in-out infinite;
     position: relative;
     overflow: hidden;
+    pointer-events: auto;
+    z-index: 26;
 }
 
-/* Animação de Pulso */
+/* Animações Desktop */
 @keyframes soundPulse {
     0%, 100% {
         transform: scale(1);
     }
     50% {
         transform: scale(1.05);
-    }
-}
-
-@keyframes shadowPulse {
-    0%, 100% {
-        box-shadow: 
-            0 10px 30px rgba(255, 59, 59, 0.5),
-            0 0 0 0 rgba(255, 59, 59, 0.4);
-    }
-    50% {
-        box-shadow: 
-            0 15px 40px rgba(255, 59, 59, 0.7),
-            0 0 0 20px rgba(255, 59, 59, 0);
     }
 }
 
@@ -185,13 +181,6 @@
 .sound-control-btn i {
     font-size: 24px;
     color: var(--white);
-    animation: iconShake 3s ease-in-out infinite;
-}
-
-@keyframes iconShake {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-10deg); }
-    75% { transform: rotate(10deg); }
 }
 
 /* Texto do Botão */
@@ -256,7 +245,7 @@
     }
 }
 
-/* Overlay de Instrução */
+/* Overlay de Instrução CENTRALIZADO */
 .vsl-overlay {
     position: absolute;
     top: 0;
@@ -265,23 +254,27 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.7);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
     z-index: 15;
     cursor: pointer;
     transition: all 0.3s ease;
+    pointer-events: auto;
 }
 
 .vsl-overlay.hidden {
     opacity: 0;
     pointer-events: none;
+    display: none;
 }
 
 .overlay-content {
     text-align: center;
+    width: 100%;
+    padding: 20px;
 }
 
-/* Alerta de Som */
+/* Alerta de Som CENTRALIZADO */
 .sound-alert {
     background: rgba(255, 184, 0, 0.1);
     border: 2px solid var(--gold);
@@ -289,6 +282,8 @@
     padding: 30px 50px;
     backdrop-filter: blur(10px);
     animation: bounceIn 0.8s ease-out;
+    display: inline-block;
+    margin: 0 auto;
 }
 
 @keyframes bounceIn {
@@ -337,6 +332,8 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
+
+
 /* Status do Som */
 .vsl-sound-status {
     margin-top: 10px;
@@ -357,52 +354,10 @@
     font-size: 16px;
 }
 
-/* Live Badge */
-.live-badge {
-    position: absolute;
-    top: var(--spacing-lg);
-    right: var(--spacing-lg);
-    background: var(--red);
-    color: var(--white);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border-radius: var(--radius-full);
-    font-weight: 700;
-    font-size: var(--text-sm);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    z-index: 10;
-    animation: livePulse 2s ease-in-out infinite;
-    box-shadow: 0 4px 20px rgba(255, 59, 59, 0.5);
-}
-
-.live-dot {
-    width: 10px;
-    height: 10px;
-    background: var(--white);
-    border-radius: 50%;
-    animation: blink 1s ease-in-out infinite;
-}
-
-/* VSL Info */
-.vsl-info {
-    text-align: center;
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: rgba(255, 184, 0, 0.05);
-    border-top: 1px solid rgba(255, 184, 0, 0.2);
-}
-
-.vsl-info p {
-    margin: 0;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--gold);
-}
-
-/* Outros estilos mantidos... */
+/* Hero Bottom Content */
 .hero-bottom-content {
     max-width: 900px;
-    margin: var(--spacing-3xl) auto 0;
+    margin: var(--spacing-2xl) auto 0;
     padding: 0 var(--spacing-lg);
 }
 
@@ -417,53 +372,106 @@
     margin-right: auto;
 }
 
-.hero-features-vsl {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-3xl);
-    animation: fadeInUp 1s ease-out 0.8s both;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    background: rgba(0, 0, 0, 0.3);
-    padding: var(--spacing-xl);
-    border-radius: var(--radius-xl);
-    border: 1px solid rgba(255, 184, 0, 0.1);
-}
-
-.hero-features-vsl li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-md);
-    text-align: left;
-    font-size: var(--text-base);
-    line-height: 1.6;
-    padding: var(--spacing-sm) 0;
-}
-
-.hero-features-vsl i {
-    color: var(--green);
-    font-size: var(--text-xl);
-    flex-shrink: 0;
-    margin-top: 2px;
-}
-
 .hero-cta-vsl {
     animation: fadeInUp 1s ease-out 1s both;
     text-align: center;
-    margin-top: var(--spacing-3xl);
+    margin-top: var(--spacing-2xl);
 }
 
-/* Responsive para controles de som */
+/* Urgency */
+.urgency-wrapper {
+    margin-top: var(--spacing-lg);
+}
+
+.urgency {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.security-badges {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    color: var(--gray-light);
+    font-size: var(--text-sm);
+}
+
+/* ========================================
+   MOBILE CORRECTIONS - VERTICAL VIDEO
+   ======================================== */
+
 @media (max-width: 768px) {
+    .hero {
+        padding: var(--spacing-2xl) 0;
+        margin-top: 40px;
+    }
+    
+    .hero-bottom-content {
+        margin-top: var(--spacing-xl);
+    }
+    
+    .vsl-container {
+        margin: var(--spacing-xl) auto;
+        padding: 0 var(--spacing-md);
+    }
+    
+    /* Video Vertical Mobile */
+    .video-responsive-wrapper {
+        padding-bottom: 177.78%; /* 9:16 aspect ratio para vertical */
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .vsl-wrapper {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    
+    /* Controles de Som Mobile CENTRALIZADOS */
     .sound-control-wrapper {
-        bottom: 15px;
+        bottom: 50%;
+        transform: translate(-50%, 50%);
+        width: calc(100% - 40px);
+        max-width: 320px;
+        display: flex;
+        justify-content: center;
     }
     
     .sound-control-btn {
         padding: 12px 20px;
+        gap: 10px;
+        animation: mobileSoundPulse 3s ease-in-out infinite; /* Animação mais lenta */
+        width: auto;
+        min-width: 250px;
+    }
+    
+    /* Animação mobile específica e mais lenta */
+    @keyframes mobileSoundPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.02);
+        }
+    }
+    
+    /* Coroa com animação mais lenta no mobile */
+    .crown-icon {
+        animation: mobileGentleBounce 4s ease-in-out infinite;
+    }
+    
+    @keyframes mobileGentleBounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-3px);
+        }
     }
     
     .sound-icon-wrapper {
@@ -473,19 +481,40 @@
     
     .sound-control-btn i {
         font-size: 20px;
+        animation: none; /* Remove animações extras do ícone */
     }
     
     .sound-text {
         font-size: 14px;
     }
     
+    /* Overlay Mobile melhor centralizado */
+    .overlay-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100%;
+        padding: 20px;
+    }
+    
     .sound-alert {
         padding: 20px 30px;
-        margin: 0 20px;
+        width: 90%;
+        max-width: 320px;
     }
     
     .sound-alert-icon {
         font-size: 40px;
+        animation: mobileSoundWave 3s ease-in-out infinite; /* Mais lento no mobile */
+    }
+    
+    @keyframes mobileSoundWave {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
     }
     
     .sound-alert-text strong {
@@ -496,15 +525,60 @@
         font-size: 14px;
     }
     
+    /* Click indicator mais lento */
+    .click-ripple {
+        animation: mobileClickRipple 3s ease-out infinite;
+    }
+    
+    @keyframes mobileClickRipple {
+        0% {
+            width: 15px;
+            height: 15px;
+            opacity: 1;
+        }
+        100% {
+            width: 50px;
+            height: 50px;
+            opacity: 0;
+        }
+    }
+    
     .vsl-sound-status {
         font-size: 12px;
+    }
+    
+    .hero-cta-vsl {
+        margin-top: var(--spacing-xl);
     }
 }
 
 @media (max-width: 480px) {
+    .hero-title-vsl {
+        font-size: var(--text-2xl);
+    }
+    
+    .hero-badge-center {
+        font-size: var(--text-xs);
+        padding: var(--spacing-xs) var(--spacing-md);
+    }
+    
+    .crown-icon {
+        font-size: var(--text-xl);
+    }
+    
+    /* Video ainda mais vertical */
+    .video-responsive-wrapper {
+        max-width: 320px;
+    }
+    
+    .vsl-wrapper {
+        max-width: 320px;
+    }
+    
     .sound-control-btn {
         padding: 10px 15px;
-        gap: 10px;
+        gap: 8px;
+        min-width: 220px;
     }
     
     .sound-text {
@@ -514,129 +588,128 @@
     .click-indicator {
         display: none;
     }
+    
+    .hero-description-vsl {
+        font-size: var(--text-base);
+        margin-bottom: var(--spacing-lg);
+    }
+}
+
+/* Landscape Mobile - Mantém video horizontal */
+@media (max-width: 768px) and (orientation: landscape) {
+    .video-responsive-wrapper {
+        padding-bottom: 56.25%; /* Volta para 16:9 em landscape */
+        max-width: 100%;
+    }
+    
+    .vsl-wrapper {
+        max-width: 600px;
+    }
+    
+    .sound-control-wrapper {
+        bottom: 20px;
+        transform: translateX(-50%);
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Desabilita animações complexas em dispositivos lentos */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 
     /* ========================================
-   CORREÇÃO DO VSL - Adicione estas regras ao hero.css
+   CORREÇÃO ADICIONAL PARA VSL INFO MOBILE
    ======================================== */
 
-/* Ajuste do espaçamento do hero-bottom-content */
-.hero-bottom-content {
-    max-width: 900px;
-    margin: var(--spacing-2xl) auto 0; /* Reduzido de 3xl para 2xl */
-    padding: 0 var(--spacing-lg);
-}
-
-/* Correção do vsl-container */
-.vsl-container {
-    margin: var(--spacing-2xl) auto; /* Reduzido de 3xl para 2xl */
-    max-width: 900px;
-    position: relative;
-    animation: fadeInUp 1s ease-out 0.4s both;
-    padding: 0 var(--spacing-lg);
-}
-
-/* Ajuste do wrapper do vídeo */
-.vsl-wrapper {
-    position: relative;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    background: var(--black);
-    cursor: pointer; /* Importante: cursor pointer em todo o wrapper */
-}
-
-/* Video responsivo com cursor pointer */
-.video-responsive-wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    cursor: pointer; /* Adiciona cursor pointer */
-}
-
-/* Ajuste do vídeo */
-.vsl-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: #000;
-    cursor: pointer;
-    pointer-events: auto; /* Garante que o vídeo seja clicável */
-}
-
-/* Overlay com pointer-events correto */
-.vsl-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 15;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    pointer-events: auto; /* Importante: permite cliques */
-}
-
-/* Botão de som com z-index maior */
-.sound-control-wrapper {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 25; /* Aumentado para ficar acima do overlay */
-    transition: all 0.3s ease;
-    pointer-events: auto; /* Garante que seja clicável */
-}
-
-/* Botão com pointer-events */
-.sound-control-btn {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: linear-gradient(135deg, var(--red) 0%, #ff5555 100%);
-    border: 3px solid var(--white);
-    border-radius: 50px;
-    padding: 15px 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 
-        0 10px 30px rgba(255, 59, 59, 0.5),
-        0 0 0 0 rgba(255, 59, 59, 0.4);
-    animation: 
-        soundPulse 2s ease-in-out infinite,
-        shadowPulse 2s ease-in-out infinite;
-    position: relative;
-    overflow: hidden;
-    pointer-events: auto; /* Importante */
-    z-index: 26; /* Alto z-index */
-}
-
-/* Ajuste da hero-cta-vsl */
-.hero-cta-vsl {
-    animation: fadeInUp 1s ease-out 1s both;
-    text-align: center;
-    margin-top: var(--spacing-2xl); /* Reduzido de 3xl */
-}
-
-/* Mobile adjustments */
 @media (max-width: 768px) {
-    .hero-bottom-content {
-        margin-top: var(--spacing-xl); /* Ainda menor no mobile */
+    /* VSL Info otimizada para mobile */
+    .vsl-info {
+        padding: 10px 15px;
+        background: rgba(255, 184, 0, 0.03);
     }
     
-    .vsl-container {
-        margin: var(--spacing-xl) auto;
+    .vsl-info p {
+        margin: 2px 0;
+        font-size: 11px;
+        line-height: 1.4;
     }
     
-    .hero-cta-vsl {
-        margin-top: var(--spacing-xl);
+    .vsl-info p:first-child {
+        display: none; /* Esconde "Assista:" no mobile para economizar espaço */
+    }
+    
+    .vsl-sound-status {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin: 0;
+        padding: 5px 0;
+    }
+    
+    .vsl-sound-status i {
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+    
+    .vsl-sound-status span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vsl-info {
+        padding: 8px 10px;
+    }
+    
+    .vsl-sound-status {
+        font-size: 11px;
+    }
+    
+    .vsl-sound-status span {
+        max-width: 150px;
+    }
+    
+    /* Para telas muito pequenas, mostra versão compacta */
+    @media (max-width: 360px) {
+        .vsl-sound-status span {
+            display: none;
+        }
+        
+        .vsl-sound-status::after {
+            content: attr(data-status);
+            margin-left: 5px;
+        }
+        
+        .vsl-sound-status.active {
+            color: var(--green);
+        }
+        
+        .vsl-sound-status.active::after {
+            content: "Ativado";
+        }
+        
+        .vsl-sound-status:not(.active)::after {
+            content: "Desativado";
+        }
     }
 }
 

@@ -1,10 +1,10 @@
 /* ========================================
-   CTA.CSS - Estilos da Seção CTA Final e Componentes Globais
+   CTA.CSS - Estilos da Seção CTA Final (CORRIGIDO)
    ======================================== */
 
-/* Final CTA Section */
+/* Final CTA Section - Alinhamento corrigido */
 .final-cta {
-    padding: var(--spacing-4xl) 0;
+    padding: var(--spacing-3xl) 0; /* Reduzido para alinhar com outras seções */
     position: relative;
     text-align: center;
     background: 
@@ -62,7 +62,7 @@
 
 /* Countdown Wrapper */
 .countdown-wrapper {
-    margin: var(--spacing-3xl) 0;
+    margin: var(--spacing-2xl) 0; /* Reduzido para melhor alinhamento */
     animation: fadeInUp 1s ease-out 0.2s both;
 }
 
@@ -125,7 +125,7 @@
     border: 1px solid rgba(var(--gold-rgb), 0.2);
     border-radius: var(--radius-xl);
     padding: var(--spacing-2xl);
-    margin: var(--spacing-3xl) auto;
+    margin: var(--spacing-2xl) auto; /* Reduzido para melhor alinhamento */
     max-width: 700px;
     animation: fadeInUp 1s ease-out 0.4s both;
 }
@@ -159,9 +159,9 @@
     flex-shrink: 0;
 }
 
-/* Large CTA Button */
+/* Large CTA Button - Alinhamento corrigido */
 .cta-button-large {
-    margin: var(--spacing-2xl) 0;
+    margin: var(--spacing-xl) 0; /* Ajustado para melhor alinhamento */
     padding: var(--spacing-xl) var(--spacing-4xl);
     font-size: var(--text-xl);
     position: relative;
@@ -194,7 +194,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-lg);
-    margin-top: var(--spacing-3xl);
+    margin-top: var(--spacing-2xl); /* Reduzido para melhor alinhamento */
     padding: var(--spacing-lg);
     animation: fadeInUp 1s ease-out 0.8s both;
 }
@@ -336,7 +336,7 @@
 /* Responsive */
 @media (max-width: 768px) {
     .final-cta {
-        padding: var(--spacing-3xl) 0;
+        padding: var(--spacing-2xl) 0; /* Ainda menor no mobile */
     }
     
     .cta-title {
@@ -358,6 +358,7 @@
     
     .cta-benefits {
         padding: var(--spacing-xl);
+        margin: var(--spacing-xl) auto;
     }
     
     .cta-benefits h3 {
@@ -372,11 +373,13 @@
         width: 100%;
         padding: var(--spacing-lg) var(--spacing-xl);
         font-size: var(--text-lg);
+        margin: var(--spacing-lg) 0;
     }
     
     .guarantee {
         flex-direction: column;
         text-align: center;
+        margin-top: var(--spacing-xl);
     }
     
     .guarantee p {
@@ -402,12 +405,20 @@
 }
 
 @media (max-width: 480px) {
+    .final-cta {
+        padding: var(--spacing-xl) 0;
+    }
+    
     .cta-title {
         font-size: var(--text-2xl);
     }
     
     .countdown-label {
         font-size: var(--text-base);
+    }
+    
+    .countdown-wrapper {
+        margin: var(--spacing-lg) 0;
     }
     
     .countdown-timer {
@@ -429,6 +440,7 @@
     
     .cta-benefits {
         padding: var(--spacing-lg);
+        margin: var(--spacing-lg) auto;
     }
     
     .cta-benefits h3 {
@@ -447,6 +459,12 @@
     .cta-button-large {
         padding: var(--spacing-md) var(--spacing-lg);
         font-size: var(--text-base);
+        margin: var(--spacing-md) 0;
+    }
+    
+    .guarantee {
+        margin-top: var(--spacing-lg);
+        padding: var(--spacing-md);
     }
     
     .notification-popup {
@@ -460,7 +478,6 @@
     }
 
     /* Mobile: Desacelera animação do WhatsApp float */
-@media (max-width: 768px) {
     .whatsapp-float {
         animation: float 4.5s ease-in-out infinite !important;
     }
@@ -470,4 +487,16 @@
         50% { transform: translateY(-5px); }
     }
 }
+
+/* Animações mais lentas no mobile */
+@media (max-width: 768px) {
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    @keyframes floatPattern {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
 }
